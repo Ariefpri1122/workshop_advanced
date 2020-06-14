@@ -1,0 +1,76 @@
+
+stages:
+ - test
+ - build
+ - deploy
+
+Application Unit Testing:
+   stage: test
+   image: 192.168.1.151:5000/laravel-pgsql
+
+   script:
+     - cp env.$CI_COMMIT_BRANCH .env
+     - php artisan key:generate
+     - echo "$(pwd)"
+     - vendor/bin/phpunit
+     - echo $CI_COMMIT_BRANCH
+
+   only:
+      refs:
+        - Development
+      variables:
+        - $CI_COMMIT_MESSAGE =~ /bungkus/
+
+Application Building:
+
+   stage: build
+   image: 192.168.1.151:5000/alphine
+   variables:
+     S3_BUCKET_NAME: "artifacts"
+   only:
+      refs:
+        - Development
+        - Staging
+        - master
+      variables:
+        - $CI_COMMIT_MESSAGE =~ /bungkus & bangun/
+        - $CI_COMMIT_MESSAGE =~ /bungkus & produksi/
+ 
+   script:
+     - tanggal=$(date +%F-%H%M%S)
+     - echo "$(pwd)"
+     - cp env.$CI_COMMIT_BRANCH .env
+     - echo $(ls)
+     - zip -r $tanggal.zip .
+     - echo $(ls)
+     - file=$tanggal.zip
+     - target=s3://artifacts/$CI_COMMIT_BRANCH/$file
+     - echo "aws s3 cp $file $target --endpoint-url=http://172.17.0.3:8000"
+     - aws s3 cp $tanggal.zip $target --endpoint-url=http://172.17.0.3:8000
+
+Application Deployment:
+
+   stage: deploy
+   image: 192.168.1.151:5000/laravel
+   script:
+    - echo "$(pwd)"
+    - cp env.$CI_COMMIT_BRANCH .env
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - echo "$KUNCI" > /tmp/gitlab_ci_ssh
+    - chmod 600 /tmp/gitlab_ci_ssh
+    - ssh-add /tmp/gitlab_ci_ssh
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - ~/.composer/vendor/bin/envoy run deploy --branch=$CI_COMMIT_BRANCH
+   environment:
+    name: Development
+    url: http://192.168.1.126:9999
+   only:
+      refs:
+        - Development
+        - Staging
+        - master
+      variables:
+        - $CI_COMMIT_MESSAGE =~ /bungkus & produksi/
+        - $CI_COMMIT_MESSAGE =~ /nyalip/
