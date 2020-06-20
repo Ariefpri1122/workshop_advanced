@@ -22,7 +22,6 @@ Application Unit Testing:
    tags:
      - kubernetes
 
-
 Application Building:
 
    stage: build
