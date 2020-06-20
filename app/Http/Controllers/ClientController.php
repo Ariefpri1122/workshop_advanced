@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Title as Title;
 use App\Client as Client;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client as Client_API;
 
 class ClientController extends Controller
 {
@@ -26,6 +28,13 @@ class ClientController extends Controller
 
         $data['clients'] = $this->client->all();
         return view('client/index', $data);
+    }
+
+    public function api_view()
+    {
+        $data = [];
+        $data['clients'] = $this->client->all();
+        return $data;
     }
 
     public function export()
