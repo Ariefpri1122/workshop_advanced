@@ -25,7 +25,7 @@ Application Unit Testing:
 Application Building:
 
    stage: build
-   image: 192.168.1.151:5000/alphine
+   image: 192.168.2.113:5000/alpine
    variables:
      S3_BUCKET_NAME: "artifacts"
    only:
@@ -36,6 +36,7 @@ Application Building:
       variables:
         - $CI_COMMIT_MESSAGE =~ /bungkus & bangun/
         - $CI_COMMIT_MESSAGE =~ /bungkus & produksi/
+        - $CI_COMMIT_MESSAGE =~ /s3/
  
    script:
      - tanggal=$(date +%F-%H%M%S)
@@ -46,8 +47,11 @@ Application Building:
      - echo $(ls)
      - file=$tanggal.zip
      - target=s3://artifacts/$CI_COMMIT_BRANCH/$file
-     - echo "aws s3 cp $file $target --endpoint-url=http://172.17.0.3:8000"
-     - aws s3 cp $tanggal.zip $target --endpoint-url=http://172.17.0.3:8000
+     - echo "aws s3 cp $file $target --endpoint-url=http://192.168.2.4:7200"
+     - aws s3 cp $tanggal.zip $target --endpoint-url=http://192.168.2.4:7200
+  
+   tags:
+     - kubernetes
 
 Application Deployment:
 
