@@ -3,28 +3,24 @@ stages:
  - build
  - deploy
 
-Application Unit Testing:
-   stage: test
+AApplication Unit Testing:
+  stage: test
+  image: 192.168.2.113:5000/laravel
 
-   script:
-     - docker build -t laraveldemo .
-     - docker tag laraveldemo 192.168.2.113:5000/laraveldemo
-     - docker push 192.168.2.113:5000/laraveldemo
+  script:
+    - cp env.$CI_COMMIT_BRANCH .env
+    - php artisan key:generate
+    - echo "$(pwd)"
+    - vendor/bin/phpunit
+    - echo $CI_COMMIT_BRANCH
 
-     - cp env.$CI_COMMIT_BRANCH .env
-     - php artisan key:generate
-     - echo "$(pwd)"
-     - vendor/bin/phpunit
-     - echo $CI_COMMIT_BRANCH
-
-   only:
-      refs:
-        - Development
-      variables:
-        - $CI_COMMIT_MESSAGE =~ /bungkus/
-   tags:
-     - vm_runner
-
+  only:
+     refs:
+       - Development
+     variables:
+       - $CI_COMMIT_MESSAGE =~ /bungkus/
+  tags:
+    - kubernetes
 
 Application Building:
 
