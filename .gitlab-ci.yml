@@ -56,21 +56,11 @@ Application Building:
 Application Deployment:
 
    stage: deploy
-   image: 192.168.1.151:5000/laravel
    script:
     - echo "$(pwd)"
-    - cp env.$CI_COMMIT_BRANCH .env
-    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-    - eval $(ssh-agent -s)
-    - echo "$KUNCI" > /tmp/gitlab_ci_ssh
-    - chmod 600 /tmp/gitlab_ci_ssh
-    - ssh-add /tmp/gitlab_ci_ssh
-    - mkdir -p ~/.ssh
-    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-    - ~/.composer/vendor/bin/envoy run deploy --branch=$CI_COMMIT_BRANCH
-   environment:
-    name: Development
-    url: http://192.168.1.126:9999
+    - echo "$(ls)"
+    - echo $USER
+
    only:
       refs:
         - Development
@@ -79,3 +69,6 @@ Application Deployment:
       variables:
         - $CI_COMMIT_MESSAGE =~ /bungkus & produksi/
         - $CI_COMMIT_MESSAGE =~ /nyalip/
+   tags:
+     - vm_runner
+     
