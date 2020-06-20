@@ -46,7 +46,10 @@ Route::get('/home', function () {
 
 Route::get('/di', 'ClientController@di');
 
-Route::get('/se', 'ctrlntnx@se');
+Route::get('/all', 'ctrlntnx@all');
+Route::get('/show/{id}', 'ctrlntnx@show');
+
+Route::get('/api_fetch', 'ClientController@api_fetch');
 
 Route::get('/facades/db', function () {
     

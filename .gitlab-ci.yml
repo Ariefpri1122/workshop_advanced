@@ -60,9 +60,9 @@ Application Deployment:
     - echo "$(pwd)"
     - echo "$(ls)"
     - echo $USER
-    - docker build -t laraveldemo .
-    - docker tag laraveldemo 192.168.2.113:5000/laraveldemo
-    - docker push 192.168.2.113:5000/laraveldemo
+    - docker build -t laravel_image .
+    - docker tag laravel_image 192.168.2.113:5000/laravel_image
+    - docker push 192.168.2.113:5000/laravel_image
 
    only:
       refs:

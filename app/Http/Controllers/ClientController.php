@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Title as Title;
 use App\Client as Client;
+use GuzzleHttp\Client as Api;
+use GuzzleHttp\Exception\RequestException;
 
 class ClientController extends Controller
 {
@@ -27,6 +29,20 @@ class ClientController extends Controller
         $data['clients'] = $this->client->all();
         return view('client/index', $data);
     }
+
+    public function api_fetch()
+    {
+        $data = [];
+
+        //$data['clients'] = $this->client->all();
+        //return $data;
+        $api = new api();
+        $request = $api->get('http://192.168.1.126:9999/api/api_view');
+        $response = $request->getBody()->getContents();
+        $hasil = json_decode($response, true);
+        return $hasil;
+    }
+
 
     public function export()
     {
