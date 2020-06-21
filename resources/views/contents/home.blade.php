@@ -4,7 +4,7 @@
     <div class="row">
       <div class="medium-6 columns">
         <h4>[DEVELOPMENT ENVIRONMENT] - Aplikasi Arief Untuk Keperluan POC dan DEMO</h4>
-        <img class="thumbnail" src="images/family.jpg">
+        <img class="thumbnail" src="images/together.jpg">
       </div>
       <div class="medium-6 large-5 columns">
         </br>
