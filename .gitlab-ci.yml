@@ -64,7 +64,7 @@
      - docker tag laravel_image 192.168.2.113:5000/laravel_image
      - docker push 192.168.2.113:5000/laravel_image
      - >-
-      curl -u "${NUTANIX_USER}":"${NUTANIX_PASSWORD}" -k -X POST https://192.168.1.45:9440/api/nutanix/v3/blueprints/20343a63-1b3b-4929-ab46-d0bdeb565773/simple_launch -H 'Content-Type: application/json' -d '{"spec": { "app_name":"${CI_COMMIT_BRANCH}","app_description":“APR Hotel BP Launch”,"app_profile_reference":{"kind":"app_profile","name":"Default","uuid":"8b6e032b-5315-4fd4-a350-03005e4710c3"}}}'
+      curl -u admin:Nut4nixP@ssw0rd -k -X POST https://192.168.1.45:9440/api/nutanix/v3/blueprints/20343a63-1b3b-4929-ab46-d0bdeb565773/simple_launch -H 'Content-Type: application/json' -d '{"spec": { "app_name":"APR_Hotel","app_description":“APR Hotel BP Launch”,"app_profile_reference":{"kind":"app_profile","name":"Default","uuid":"8b6e032b-5315-4fd4-a350-03005e4710c3"}}}'
     
     only:
        refs:
