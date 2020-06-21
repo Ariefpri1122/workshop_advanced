@@ -63,9 +63,9 @@
      - docker build -t laravel_image .
      - docker tag laravel_image 192.168.2.113:5000/laravel_image
      - docker push 192.168.2.113:5000/laravel_image
-     - >
-       var=“$(curl -u admin:Nut4nixP@ssw0rd -k -X POST -H 'Content-Type: application/json' https://192.168.1.45:9440/api/nutanix/v3/apps/list -d "{\"kind\":\"app\",\"filter\":\"name==APR_Hotel\”}”)”
-       if echo "$var" | grep -q '"total_matches":1'; then hasil="cocok"; else hasil="gagal";fi
+     - >-
+      var="$(curl -u admin:Nut4nixP@ssw0rd -k -X POST -H 'Content-Type: application/json' https://192.168.1.45:9440/api/nutanix/v3/apps/list -d "{\"kind\":\"app\",\"filter\":\"name==APR_Hotel\"}")"
+      if echo "$var" | grep -q '"total_matches":1'; then hasil="cocok"; else hasil="gagal";fi
      - echo $hasil
     only:
        refs:
