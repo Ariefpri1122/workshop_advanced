@@ -60,7 +60,6 @@
      - echo "$(pwd)"
      - echo "$(ls)"
      - echo $USER
-     - clear-cache
      - docker build -t laravel_image .
      - docker tag laravel_image 192.168.2.113:5000/laravel_image
      - docker push 192.168.2.113:5000/laravel_image
