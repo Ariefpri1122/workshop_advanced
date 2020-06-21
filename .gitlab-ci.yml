@@ -1,79 +1,80 @@
 stages:
- - test
- - build
- - deploy
-
-Application Unit Testing:
-   stage: test
-   image: 192.168.2.113:5000/laravel
-
-   script:
-     - cp env.$CI_COMMIT_BRANCH .env
-     - php artisan key:generate
-     - echo "$(pwd)"
-     - vendor/bin/phpunit
-     - echo $CI_COMMIT_BRANCH
-
-   only:
-      refs:
-        - Development
-      variables:
-        - $CI_COMMIT_MESSAGE =~ /bungkus/
-   tags:
-     - kubernetes
-
-Application Building:
-
-   stage: build
-   image: 192.168.2.113:5000/alpine
-   variables:
-     S3_BUCKET_NAME: "artifacts"
-   only:
-      refs:
-        - Development
-        - Staging
-        - master
-      variables:
-        - $CI_COMMIT_MESSAGE =~ /bungkus & bangun/
-        - $CI_COMMIT_MESSAGE =~ /bungkus & produksi/
-        - $CI_COMMIT_MESSAGE =~ /s3/
+  - test
+  - build
+  - deploy
  
-   script:
-     - tanggal=$(date +%F-%H%M%S)
-     - echo "$(pwd)"
-     - cp env.$CI_COMMIT_BRANCH .env
-     - echo $(ls)
-     - zip -r $tanggal.zip .
-     - echo $(ls)
-     - file=$tanggal.zip
-     - target=s3://artifacts/$CI_COMMIT_BRANCH/$file
-     - echo "aws s3 cp $file $target --endpoint-url=http://192.168.2.4:7200"
-     - aws s3 cp $tanggal.zip $target --endpoint-url=http://192.168.2.4:7200
+ Application Unit Testing:
+    stage: test
+    image: 192.168.2.113:5000/laravel
+ 
+    script:
+      - cp env.$CI_COMMIT_BRANCH .env
+      - php artisan key:generate
+      - echo "$(pwd)"
+      - vendor/bin/phpunit
+      - echo $CI_COMMIT_BRANCH
+ 
+    only:
+       refs:
+         - Development
+       variables:
+         - $CI_COMMIT_MESSAGE =~ /bungkus/
+    tags:
+      - kubernetes
+ 
+ Application Building:
+ 
+    stage: build
+    image: 192.168.2.113:5000/alpine
+    variables:
+      S3_BUCKET_NAME: "artifacts"
+    only:
+       refs:
+         - Development
+         - Staging
+         - master
+       variables:
+         - $CI_COMMIT_MESSAGE =~ /bungkus & bangun/
+         - $CI_COMMIT_MESSAGE =~ /bungkus & produksi/
+         - $CI_COMMIT_MESSAGE =~ /s3/
   
-   tags:
-     - kubernetes
-
-Application Deployment:
-
-   stage: deploy
-   script:
-    - echo "$(pwd)"
-    - echo "$(ls)"
-    - echo $USER
-    - docker build -t laravel_image .
-    - docker tag laravel_image 192.168.2.113:5000/laravel_image
-    - docker push 192.168.2.113:5000/laravel_image
-    - curl -u $NUTANIX_USER:$NUTANIX_PASSWORD -k -X POST \
-    https://192.168.1.45:9440/api/nutanix/v3/blueprints/20343a63-1b3b-4929-ab46-d0bdeb565773/simple_launch -H 'Content-Type: application/json' -d '{"spec": { "app_name": "'"$CI_COMMIT_BRANCH"'", "app_description": “APR Hotel BP Launch”, "app_profile_reference": { "kind": "app_profile", "name": "Default", "uuid": "0618ccea-cecd-4a16-a4cb-dddb8e052324"}}}'
-
-   only:
-      refs:
-        - Development
-        - Staging
-        - master
-      variables:
-        - $CI_COMMIT_MESSAGE =~ /bungkus & produksi/
-        - $CI_COMMIT_MESSAGE =~ /nyalip/
-   tags:
-     - vm_runner
-     
+    script:
+      - tanggal=$(date +%F-%H%M%S)
+      - echo "$(pwd)"
+      - cp env.$CI_COMMIT_BRANCH .env
+      - echo $(ls)
+      - zip -r $tanggal.zip .
+      - echo $(ls)
+      - file=$tanggal.zip
+      - target=s3://artifacts/$CI_COMMIT_BRANCH/$file
+      - echo "aws s3 cp $file $target --endpoint-url=http://192.168.2.4:7200"
+      - aws s3 cp $tanggal.zip $target --endpoint-url=http://192.168.2.4:7200
+   
+    tags:
+      - kubernetes
+ 
+ Application Deployment:
+ 
+    stage: deploy
+    script:
+     - echo "$(pwd)"
+     - echo "$(ls)"
+     - echo $USER
+     - docker build -t laravel_image .
+     - docker tag laravel_image 192.168.2.113:5000/laravel_image
+     - docker push 192.168.2.113:5000/laravel_image
+     - >-
+       curl -u ${NUTANIX_USER}:${NUTANIX_PASSWORD} -k -X POST https://192.168.1.45:9440/api/nutanix/v3/blueprints/20343a63-1b3b-4929-ab46-d0bdeb565773/simple_launch -H 'Content-Type: application/json' -d '{"spec": { "app_name": "'"${CI_COMMIT_BRANCH}"'", "app_description": “APR Hotel BP Launch”, "app_profile_reference": { "kind": "app_profile", "name": "Default", "uuid": "0618ccea-cecd-4a16-a4cb-dddb8e052324"}}}'
+ 
+    only:
+       refs:
+         - Development
+         - Staging
+         - master
+       variables:
+         - $CI_COMMIT_MESSAGE =~ /bungkus & produksi/
+         - $CI_COMMIT_MESSAGE =~ /nyalip/
+    tags:
+      - vm_runner
+      
+ 
