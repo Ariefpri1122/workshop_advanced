@@ -8,6 +8,8 @@
  Application Unit Testing:
     stage: test
     image: 192.168.2.113:5000/laravel
+    variables:
+      GIT_DEPTH: 500
  
     script:
       - cp env.$CI_COMMIT_BRANCH .env
@@ -30,6 +32,7 @@
     image: 192.168.2.113:5000/alpine
     variables:
       S3_BUCKET_NAME: "artifacts"
+      GIT_DEPTH: 500
     only:
        refs:
          - Development
@@ -58,6 +61,9 @@
  Application Deployment Production:
  
     stage: deploy
+    variables:
+      GIT_DEPTH: 500
+
     script:
      - echo "$(pwd)"
      - echo "$(ls)"
@@ -88,6 +94,9 @@
  Application Deployment Development:
  
     stage: deploy_development
+    variables:
+      GIT_DEPTH: 500
+
     script:
       - echo "$(pwd)"
       - echo "$(ls)"
@@ -118,6 +127,9 @@
  Application Deployment Stagging:
 
     stage: deploy_stagging
+    variables:
+      GIT_DEPTH: 500
+
     script:
       - echo "$(pwd)"
       - echo "$(ls)"
