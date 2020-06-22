@@ -100,6 +100,7 @@
     script:
       - echo "$(pwd)"
       - echo "$(ls)"
+      - echo "$(cat resources/views/contents/home.blade.php)"
       - echo $USER
       - echo $CI_COMMIT_BRANCH
       - cp Dockerfile.$CI_COMMIT_BRANCH Dockerfile
