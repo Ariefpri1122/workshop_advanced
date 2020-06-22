@@ -94,7 +94,7 @@
       - echo $USER
       - echo $CI_COMMIT_BRANCH
       - cp Dockerfile.$CI_COMMIT_BRANCH Dockerfile
-      - docker build -t --no-cache laravel_image_development .
+      - docker build --no-cache -t laravel_image_development .
       - docker tag laravel_image 192.168.2.113:5000/laravel_image_development
       - docker push 192.168.2.113:5000/laravel_image_development
       - >-
