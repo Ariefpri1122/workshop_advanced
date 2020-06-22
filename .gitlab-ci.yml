@@ -64,7 +64,7 @@
      - echo $USER
      - echo $CI_COMMIT_BRANCH
      - cp Dockerfile.$CI_COMMIT_BRANCH Dockerfile
-     - docker build --no-cache -t laravel_image .
+     - docker build -t laravel_image .
      - docker tag laravel_image 192.168.2.113:5000/laravel_image
      - docker push 192.168.2.113:5000/laravel_image
      - >-
@@ -94,7 +94,7 @@
       - echo $USER
       - echo $CI_COMMIT_BRANCH
       - cp Dockerfile.$CI_COMMIT_BRANCH Dockerfile
-      - docker build --no-cache -t laravel_image_development .
+      - docker build -t laravel_image_development .
       - docker tag laravel_image 192.168.2.113:5000/laravel_image_development
       - docker push 192.168.2.113:5000/laravel_image_development
       - >-
@@ -104,7 +104,7 @@
       - pembanding="cocok"
       - echo $pembanding
       - chmod +x BluePrint_Launch_development.sh
-      - chmod +x update_image.sh
+      - chmod +x update_image_development.sh
       - if [ "$hasil" == "$pembanding" ]; then ./update_image_development.sh; else ./BluePrint_Launch_development.sh;fi
     only:
         refs:
@@ -124,7 +124,7 @@
       - echo $USER
       - echo $CI_COMMIT_BRANCH
       - cp Dockerfile.$CI_COMMIT_BRANCH Dockerfile
-      - docker build --no-cache -t laravel_image_stagging .
+      - docker build -t laravel_image_stagging .
       - docker tag laravel_image 192.168.2.113:5000/laravel_image_stagging
       - docker push 192.168.2.113:5000/laravel_image_stagging
       - >-
@@ -134,7 +134,7 @@
       - pembanding="cocok"
       - echo $pembanding
       - chmod +x BluePrint_Launch_stagging.sh
-      - chmod +x update_image.sh
+      - chmod +x update_image_stagging.sh
       - if [ "$hasil" == "$pembanding" ]; then ./update_image_stagging.sh; else ./BluePrint_Launch_stagging.sh;fi
     only:
         refs:
