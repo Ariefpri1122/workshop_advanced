@@ -2,6 +2,8 @@
   - test
   - build
   - deploy
+  - deploy_development
+  - deploy_stagging
  
  Application Unit Testing:
     stage: test
@@ -80,7 +82,7 @@
          - $CI_COMMIT_MESSAGE =~ /nyalip/
     tags:
       - vm_runner
- Application Deployment Production:
+Application Deployment Production:
  
     stage: deploy
     script:
@@ -107,6 +109,7 @@
          - $CI_COMMIT_MESSAGE =~ /nyalip/
     tags:
       - vm_runner
+      
  Application Deployment Production:
  
     stage: deploy
@@ -165,7 +168,7 @@
 
   Application Deployment Development:
  
-    stage: deploy
+    stage: deploy_development
     script:
       - echo "$(pwd)"
       - echo "$(ls)"
@@ -193,7 +196,7 @@
  
   Application Deployment Stagging:
 
-    stage: deploy
+    stage: deploy_stagging
     script:
       - echo "$(pwd)"
       - echo "$(ls)"
