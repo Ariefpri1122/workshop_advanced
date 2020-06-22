@@ -98,6 +98,7 @@
       GIT_DEPTH: 1
 
     script:
+      - git clone
       - echo "$(pwd)"
       - echo "$(ls)"
       - echo $USER
