@@ -7,7 +7,7 @@
  
  Application Unit Testing:
     stage: test
-    image: 192.168.2.113:5000/laravel_image
+    image: 192.168.2.113:5000/laravel
  
     script:
       - cp env.$CI_COMMIT_BRANCH .env
