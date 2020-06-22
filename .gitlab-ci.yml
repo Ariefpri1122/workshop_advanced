@@ -68,7 +68,7 @@
      - if echo "$var" | grep -q '"total_matches":1';then hasil="cocok";else hasil="gagal";fi
      - echo $hasil
      - chmod +x BluePrint_Launch.sh
-     - if echo "$hasil"=="cocok";then ssh root@192.168.3.121 "kubectl set image deployment/apr-hotel-deployment container-hotel=192.168.2.113:5000/laravel_image && kubectl set image deployment/apr-hotel-deployment container-hotel=192.168.2.113:5000/laravel_image:latest"; else ./BluePrint_Launch.sh;fi
+     - if echo "$hasil"=="cocok";then ssh root@192.168.3.121 "kubectl set image deployment/apr-hotel-deployment container-hotel=192.168.2.113:5000/laravel_image && kubectl set image deployment/apr-hotel-deployment container-hotel=192.168.2.113:5000/laravel_image:latest"; else echo "Launch BP";fi
     only:
        refs:
          - Development
