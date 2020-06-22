@@ -98,7 +98,6 @@
       GIT_DEPTH: 1
 
     script:
-      - 
       - git clone centos@192.168.2.216:root/apr-hotel.git
       - echo "$(pwd)"
       - echo "$(ls)"
