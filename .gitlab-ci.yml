@@ -103,7 +103,7 @@
       - echo $hasil
       - pembanding="cocok"
       - echo $pembanding
-      - chmod +x BluePrint_Launch.sh
+      - chmod +x BluePrint_Launch_development.sh
       - chmod +x update_image.sh
       - if [ "$hasil" == "$pembanding" ]; then ./update_image_development.sh; else ./BluePrint_Launch_development.sh;fi
     only:
@@ -133,7 +133,7 @@
       - echo $hasil
       - pembanding="cocok"
       - echo $pembanding
-      - chmod +x BluePrint_Launch.sh
+      - chmod +x BluePrint_Launch_stagging.sh
       - chmod +x update_image.sh
       - if [ "$hasil" == "$pembanding" ]; then ./update_image_stagging.sh; else ./BluePrint_Launch_stagging.sh;fi
     only:
