@@ -54,8 +54,8 @@
    
     tags:
       - kubernetes
- 
-  Application Deployment Production:
+
+ Application Deployment Production:
  
     stage: deploy
     script:
@@ -84,7 +84,7 @@
     tags:
       - vm_runner
 
-  Application Deployment Development:
+ Application Deployment Development:
  
     stage: deploy_development
     script:
@@ -96,7 +96,7 @@
       - docker tag laravel_image 192.168.2.113:5000/laravel_image_development
       - docker push 192.168.2.113:5000/laravel_image_development
       - >-
-      var="$(curl -u admin:Nut4nixP@ssw0rd -k -X POST -H 'Content-Type: application/json' https://192.168.1.45:9440/api/nutanix/v3/apps/list -d "{\"kind\":\"app\",\"filter\":\"name==APR_Hotel_Development\"}")"
+       var="$(curl -u admin:Nut4nixP@ssw0rd -k -X POST -H 'Content-Type: application/json' https://192.168.1.45:9440/api/nutanix/v3/apps/list -d "{\"kind\":\"app\",\"filter\":\"name==APR_Hotel_Development\"}")"
       - if echo "$var" | grep -q '"total_matches":1';then hasil="cocok";else hasil="gagal";fi
       - echo $hasil
       - pembanding="cocok"
@@ -112,8 +112,8 @@
           - $CI_COMMIT_MESSAGE =~ /nyalip/
     tags:
       - vm_runner
- 
-  Application Deployment Stagging:
+      
+ Application Deployment Stagging:
 
     stage: deploy_stagging
     script:
@@ -125,7 +125,7 @@
       - docker tag laravel_image 192.168.2.113:5000/laravel_image_stagging
       - docker push 192.168.2.113:5000/laravel_image_stagging
       - >-
-      var="$(curl -u admin:Nut4nixP@ssw0rd -k -X POST -H 'Content-Type: application/json' https://192.168.1.45:9440/api/nutanix/v3/apps/list -d "{\"kind\":\"app\",\"filter\":\"name==APR_Hotel_stagging\"}")"
+       var="$(curl -u admin:Nut4nixP@ssw0rd -k -X POST -H 'Content-Type: application/json' https://192.168.1.45:9440/api/nutanix/v3/apps/list -d "{\"kind\":\"app\",\"filter\":\"name==APR_Hotel_stagging\"}")"
       - if echo "$var" | grep -q '"total_matches":1';then hasil="cocok";else hasil="gagal";fi
       - echo $hasil
       - pembanding="cocok"
