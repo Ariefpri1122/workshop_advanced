@@ -67,7 +67,8 @@
       var="$(curl -u admin:Nut4nixP@ssw0rd -k -X POST -H 'Content-Type: application/json' https://192.168.1.45:9440/api/nutanix/v3/apps/list -d "{\"kind\":\"app\",\"filter\":\"name==APR_Hotel\"}")"
      - if echo "$var" | grep -q '"total_matches":1';then hasil="cocok";else hasil="gagal";fi
      - echo $hasil
-     - if echo "$hasil"=="cocok";then ssh root@192.168.3.121 "kubectl set image deployment/apr-hotel-deployment container-hotel=192.168.2.113:5000/laravel_image && kubectl set image deployment/apr-hotel-deployment container-hotel=192.168.2.113:5000/laravel_image:latest"; else echo "curl buat bp";fi
+     - chmod +x BluePrint_Launch.sh
+     - if echo "$hasil"=="cocok";then ssh root@192.168.3.121 "kubectl set image deployment/apr-hotel-deployment container-hotel=192.168.2.113:5000/laravel_image && kubectl set image deployment/apr-hotel-deployment container-hotel=192.168.2.113:5000/laravel_image:latest"; else "./BluePrint_Launch.sh";fi
     only:
        refs:
          - Development
