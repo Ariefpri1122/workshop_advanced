@@ -9,7 +9,7 @@
     stage: test
     image: 192.168.2.113:5000/laravel
     variables:
-      GIT_STRATEGY: clone
+      GIT_DEPTH: 100
  
     script:
       - cp env.$CI_COMMIT_BRANCH .env
@@ -32,7 +32,7 @@
     image: 192.168.2.113:5000/alpine
     variables:
       S3_BUCKET_NAME: "artifacts"
-      GIT_STRATEGY: clone
+      GIT_DEPTH: 100
     only:
        refs:
          - Development
@@ -62,7 +62,7 @@
  
     stage: deploy
     variables:
-      GIT_STRATEGY: clone
+      GIT_DEPTH: 100
 
     script:
      - echo "$(pwd)"
@@ -70,7 +70,7 @@
      - echo $USER
      - echo $CI_COMMIT_BRANCH
      - cp Dockerfile.$CI_COMMIT_BRANCH Dockerfile
-     - docker build -t laravel_image .
+     - docker build --no-cache -t laravel_image -f laravel_image .
      - docker tag laravel_image 192.168.2.113:5000/laravel_image
      - docker push 192.168.2.113:5000/laravel_image
      - >-
@@ -95,7 +95,7 @@
  
     stage: deploy_development
     variables:
-      GIT_STRATEGY: clone
+      GIT_DEPTH: 100
 
     script:
       - echo "$(pwd)"
@@ -103,7 +103,7 @@
       - echo $USER
       - echo $CI_COMMIT_BRANCH
       - cp Dockerfile.$CI_COMMIT_BRANCH Dockerfile
-      - docker build -t laravel_image_development .
+      - docker build --no-cache -t laravel_image_development -f laravel_image_development .
       - docker tag laravel_image 192.168.2.113:5000/laravel_image_development
       - docker push 192.168.2.113:5000/laravel_image_development
       - >-
@@ -128,7 +128,7 @@
 
     stage: deploy_stagging
     variables:
-      GIT_STRATEGY: clone
+      GIT_DEPTH: 100
 
     script:
       - echo "$(pwd)"
@@ -136,7 +136,7 @@
       - echo $USER
       - echo $CI_COMMIT_BRANCH
       - cp Dockerfile.$CI_COMMIT_BRANCH Dockerfile
-      - docker build -t laravel_image_stagging .
+      - docker build --no-cache -t laravel_image_stagging -f laravel_image_stagging .
       - docker tag laravel_image 192.168.2.113:5000/laravel_image_stagging
       - docker push 192.168.2.113:5000/laravel_image_stagging
       - >-
