@@ -27,11 +27,4 @@ class ExampleTest extends TestCase
         $response->assertStatus(302);
     }
 
-    public function testSE()
-    {
-        $response = $this->get('se');
-
-        $response->assertStatus(200);
-    }
-
 }

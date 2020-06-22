@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('content')
+@section('content') 
     <div class="row">
       <div class="medium-6 columns">
-        <h4>[DEVELOPMENT'S ENVIRONMENT] - Aplikasi Arief Untuk Keperluan POC dan DEMO</h4>
-        <img class="thumbnail" src="images/family.jpg">
+        <h4>[DEVELOPMENT ENVIRONMENT] - POC dan DEMO</h4>
+        <img class="thumbnail" src="images/london.jpg">
       </div>
       <div class="medium-6 large-5 columns">
         </br>

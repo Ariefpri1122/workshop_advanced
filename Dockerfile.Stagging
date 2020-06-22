@@ -16,8 +16,9 @@ RUN docker-php-ext-install mysqli pdo pdo_pgsql pdo_mysql tokenizer xml pcntl
 WORKDIR /app
 COPY . /app
 RUN composer install
-
-RUN mv env.master .env
+RUN cat resources/views/contents/home.blade.php
+RUN mv env.stagging .env
+RUN cat .env
 RUN php artisan optimize
 CMD php artisan serve --host=0.0.0.0 --port=9999
 EXPOSE 9999

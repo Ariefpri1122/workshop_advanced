@@ -39,6 +39,7 @@ return array(
     'App\\Room' => $baseDir . '/app/Room.php',
     'App\\Title' => $baseDir . '/app/Title.php',
     'App\\User' => $baseDir . '/app/User.php',
+    'App\\dbntnx' => $baseDir . '/app/dbntnx.php',
     'App\\modelntnx' => $baseDir . '/app/modelntnx.php',
     'ArithmeticError' => $vendorDir . '/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php',
     'AssertionError' => $vendorDir . '/symfony/polyfill-php70/Resources/stubs/AssertionError.php',

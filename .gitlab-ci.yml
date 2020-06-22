@@ -1,77 +1,159 @@
-stages:
- - test
- - build
- - deploy
-
-AApplication Unit Testing:
-  stage: test
-  image: 192.168.2.113:5000/laravel
-
-  script:
-    - cp env.$CI_COMMIT_BRANCH .env
-    - php artisan key:generate
-    - echo "$(pwd)"
-    - vendor/bin/phpunit
-    - echo $CI_COMMIT_BRANCH
-
-  only:
-     refs:
-       - Development
-     variables:
-       - $CI_COMMIT_MESSAGE =~ /bungkus/
-  tags:
-    - kubernetes
-
-Application Building:
-
-   stage: build
-   image: 192.168.1.151:5000/alphine
-   variables:
-     S3_BUCKET_NAME: "artifacts"
-   only:
-      refs:
-        - Development
-        - Staging
-        - master
-      variables:
-        - $CI_COMMIT_MESSAGE =~ /bungkus & bangun/
-        - $CI_COMMIT_MESSAGE =~ /bungkus & produksi/
+ stages:
+  - test
+  - build
+  - deploy
+  - deploy_development
+  - deploy_stagging
  
-   script:
-     - tanggal=$(date +%F-%H%M%S)
+ Application Unit Testing:
+    stage: test
+    image: 192.168.2.113:5000/laravel
+    variables:
+      GIT_DEPTH: 100
+ 
+    script:
+      - cp env.$CI_COMMIT_BRANCH .env
+      - php artisan key:generate
+      - echo "$(pwd)"
+      - vendor/bin/phpunit
+      - echo $CI_COMMIT_BRANCH
+      
+    only:
+       refs:
+         - Development
+       variables:
+         - $CI_COMMIT_MESSAGE =~ /bungkus/
+    tags:
+      - kubernetes
+ 
+ Application Building:
+ 
+    stage: build
+    image: 192.168.2.113:5000/alpine
+    variables:
+      S3_BUCKET_NAME: "artifacts"
+      GIT_DEPTH: 100
+    only:
+       refs:
+         - Development
+         - Staging
+         - master
+       variables:
+         - $CI_COMMIT_MESSAGE =~ /bungkus & bangun/
+         - $CI_COMMIT_MESSAGE =~ /bungkus & produksi/
+         - $CI_COMMIT_MESSAGE =~ /s3/
+  
+    script:
+      - tanggal=$(date +%F-%H%M%S)
+      - echo "$(pwd)"
+      - cp env.$CI_COMMIT_BRANCH .env
+      - echo $(ls)
+      - zip -r $tanggal.zip .
+      - echo $(ls)
+      - file=$tanggal.zip
+      - target=s3://artifacts/$CI_COMMIT_BRANCH/$file
+      - echo "aws s3 cp $file $target --endpoint-url=http://192.168.2.4:7200"
+      - aws s3 cp $tanggal.zip $target --endpoint-url=http://192.168.2.4:7200
+   
+    tags:
+      - kubernetes
+
+ Application Deployment Production:
+ 
+    stage: deploy
+    variables:
+      GIT_DEPTH: 1
+
+    script:
      - echo "$(pwd)"
-     - cp env.$CI_COMMIT_BRANCH .env
-     - echo $(ls)
-     - zip -r $tanggal.zip .
-     - echo $(ls)
-     - file=$tanggal.zip
-     - target=s3://artifacts/$CI_COMMIT_BRANCH/$file
-     - echo "aws s3 cp $file $target --endpoint-url=http://172.17.0.3:8000"
-     - aws s3 cp $tanggal.zip $target --endpoint-url=http://172.17.0.3:8000
+     - echo "$(ls)"
+     - echo $USER
+     - echo $CI_COMMIT_BRANCH
+     - cp Dockerfile.$CI_COMMIT_BRANCH Dockerfile
+     - docker build -t laravel_image .
+     - docker tag laravel_image 192.168.2.113:5000/laravel_image
+     - docker push 192.168.2.113:5000/laravel_image
+     - >-
+      var="$(curl -u admin:Nut4nixP@ssw0rd -k -X POST -H 'Content-Type: application/json' https://192.168.1.45:9440/api/nutanix/v3/apps/list -d "{\"kind\":\"app\",\"filter\":\"name==APR_Hotel\"}")"
+     - if echo "$var" | grep -q '"total_matches":1';then hasil="cocok";else hasil="gagal";fi
+     - echo $hasil
+     - pembanding="cocok"
+     - echo $pembanding
+     - chmod +x BluePrint_Launch.sh
+     - chmod +x update_image.sh
+     - if [ "$hasil" == "$pembanding" ]; then ./update_image.sh; else ./BluePrint_Launch.sh;fi
+    only:
+       refs:
+         - master
+       variables:
+         - $CI_COMMIT_MESSAGE =~ /bungkus & produksi/
+         - $CI_COMMIT_MESSAGE =~ /nyalip/
+    tags:
+      - vm_runner
 
-Application Deployment:
+ Application Deployment Development:
+ 
+    stage: deploy_development
+    variables:
+      GIT_DEPTH: 1
 
-   stage: deploy
-   image: 192.168.1.151:5000/laravel
-   script:
-    - echo "$(pwd)"
-    - cp env.$CI_COMMIT_BRANCH .env
-    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-    - eval $(ssh-agent -s)
-    - echo "$KUNCI" > /tmp/gitlab_ci_ssh
-    - chmod 600 /tmp/gitlab_ci_ssh
-    - ssh-add /tmp/gitlab_ci_ssh
-    - mkdir -p ~/.ssh
-    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-    - ~/.composer/vendor/bin/envoy run deploy --branch=$CI_COMMIT_BRANCH
-   environment:
-    name: Development
-    url: http://192.168.1.126:9999
-   only:
-      refs:
-        - Development
-        - Staging
-        - master
-      variables:
-        - $CI_COMMIT_MESSAGE =~ /bungkus & produksi/
-        - $CI_COMMIT_MESSAGE =~ /nyalip/
+    script:
+      - echo "$(pwd)"
+      - echo "$(ls)"
+      - echo "$(cat resources/views/contents/home.blade.php)"
+      - echo $USER
+      - echo $CI_COMMIT_BRANCH
+      - cp Dockerfile.$CI_COMMIT_BRANCH Dockerfile
+      - docker build -t laravel_image_development .
+      - docker tag laravel_image_development 192.168.2.113:5000/laravel_image_development
+      - docker push 192.168.2.113:5000/laravel_image_development
+      - >-
+       var="$(curl -u admin:Nut4nixP@ssw0rd -k -X POST -H 'Content-Type: application/json' https://192.168.1.45:9440/api/nutanix/v3/apps/list -d "{\"kind\":\"app\",\"filter\":\"name==APR_Hotel_Development\"}")"
+      - if echo "$var" | grep -q '"total_matches":1';then hasil="cocok";else hasil="gagal";fi
+      - echo $hasil
+      - pembanding="cocok"
+      - echo $pembanding
+      - chmod +x BluePrint_Launch_development.sh
+      - chmod +x update_image_development.sh
+      - if [ "$hasil" == "$pembanding" ]; then ./update_image_development.sh; else ./BluePrint_Launch_development.sh;fi
+    only:
+        refs:
+          - Development
+        variables:
+          - $CI_COMMIT_MESSAGE =~ /bungkus & produksi/
+          - $CI_COMMIT_MESSAGE =~ /nyalip/
+    tags:
+      - vm_runner
+      
+ Application Deployment Stagging:
+
+    stage: deploy_stagging
+    variables:
+      GIT_DEPTH: 1
+
+    script:
+      - echo "$(pwd)"
+      - echo "$(ls)"
+      - echo $USER
+      - echo $CI_COMMIT_BRANCH
+      - cp Dockerfile.$CI_COMMIT_BRANCH Dockerfile
+      - docker build -t laravel_image_stagging -f .
+      - docker tag laravel_image 192.168.2.113:5000/laravel_image_stagging
+      - docker push 192.168.2.113:5000/laravel_image_stagging
+      - >-
+       var="$(curl -u admin:Nut4nixP@ssw0rd -k -X POST -H 'Content-Type: application/json' https://192.168.1.45:9440/api/nutanix/v3/apps/list -d "{\"kind\":\"app\",\"filter\":\"name==APR_Hotel_stagging\"}")"
+      - if echo "$var" | grep -q '"total_matches":1';then hasil="cocok";else hasil="gagal";fi
+      - echo $hasil
+      - pembanding="cocok"
+      - echo $pembanding
+      - chmod +x BluePrint_Launch_stagging.sh
+      - chmod +x update_image_stagging.sh
+      - if [ "$hasil" == "$pembanding" ]; then ./update_image_stagging.sh; else ./BluePrint_Launch_stagging.sh;fi
+    only:
+        refs:
+          - Stagging
+        variables:
+          - $CI_COMMIT_MESSAGE =~ /bungkus & produksi/
+          - $CI_COMMIT_MESSAGE =~ /nyalip/
+    tags:
+      - vm_runner

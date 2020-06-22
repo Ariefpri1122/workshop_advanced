@@ -4,16 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\modelntnx;
+use App\se;
 
 class ctrlntnx extends Controller
 {
     //
 
-    public function se ()
+    public function all()
     {
-        return ('Ini message dari controller');
+        return se::all();
     }
 
+    public function show($id)
+    {
+        return se::find($id);
+    }
     
     /*
     public function se(modelntnx $modelntnx)
