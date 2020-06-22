@@ -53,7 +53,7 @@
     tags:
       - kubernetes
  
- Application Deployment:
+ Application Deployment Production:
  
     stage: deploy
     script:
@@ -74,13 +74,147 @@
      - if [ "$hasil" == "$pembanding" ]; then ./update_image.sh; else ./BluePrint_Launch.sh;fi
     only:
        refs:
-         - Development
-         - Staging
          - master
        variables:
          - $CI_COMMIT_MESSAGE =~ /bungkus & produksi/
          - $CI_COMMIT_MESSAGE =~ /nyalip/
     tags:
       - vm_runner
-      
+ Application Deployment Production:
  
+    stage: deploy
+    script:
+     - echo "$(pwd)"
+     - echo "$(ls)"
+     - echo $USER
+     - docker build -t laravel_image .
+     - docker tag laravel_image 192.168.2.113:5000/laravel_image
+     - docker push 192.168.2.113:5000/laravel_image
+     - >-
+      var="$(curl -u admin:Nut4nixP@ssw0rd -k -X POST -H 'Content-Type: application/json' https://192.168.1.45:9440/api/nutanix/v3/apps/list -d "{\"kind\":\"app\",\"filter\":\"name==APR_Hotel\"}")"
+     - if echo "$var" | grep -q '"total_matches":1';then hasil="cocok";else hasil="gagal";fi
+     - echo $hasil
+     - pembanding="cocok"
+     - echo $pembanding
+     - chmod +x BluePrint_Launch.sh
+     - chmod +x update_image.sh
+     - if [ "$hasil" == "$pembanding" ]; then ./update_image.sh; else ./BluePrint_Launch.sh;fi
+    only:
+       refs:
+         - master
+       variables:
+         - $CI_COMMIT_MESSAGE =~ /bungkus & produksi/
+         - $CI_COMMIT_MESSAGE =~ /nyalip/
+    tags:
+      - vm_runner
+ Application Deployment Production:
+ 
+    stage: deploy
+    script:
+     - echo "$(pwd)"
+     - echo "$(ls)"
+     - echo $USER
+     - docker build -t laravel_image .
+     - docker tag laravel_image 192.168.2.113:5000/laravel_image
+     - docker push 192.168.2.113:5000/laravel_image
+     - >-
+      var="$(curl -u admin:Nut4nixP@ssw0rd -k -X POST -H 'Content-Type: application/json' https://192.168.1.45:9440/api/nutanix/v3/apps/list -d "{\"kind\":\"app\",\"filter\":\"name==APR_Hotel\"}")"
+     - if echo "$var" | grep -q '"total_matches":1';then hasil="cocok";else hasil="gagal";fi
+     - echo $hasil
+     - pembanding="cocok"
+     - echo $pembanding
+     - chmod +x BluePrint_Launch.sh
+     - chmod +x update_image.sh
+     - if [ "$hasil" == "$pembanding" ]; then ./update_image.sh; else ./BluePrint_Launch.sh;fi
+    only:
+       refs:
+         - master
+       variables:
+         - $CI_COMMIT_MESSAGE =~ /bungkus & produksi/
+         - $CI_COMMIT_MESSAGE =~ /nyalip/
+    tags:
+      - vm_runner
+
+  Application Deployment Production:
+ 
+    stage: deploy
+    script:
+     - echo "$(pwd)"
+     - echo "$(ls)"
+     - echo $USER
+     - docker build -t laravel_image .
+     - docker tag laravel_image 192.168.2.113:5000/laravel_image
+     - docker push 192.168.2.113:5000/laravel_image
+     - >-
+      var="$(curl -u admin:Nut4nixP@ssw0rd -k -X POST -H 'Content-Type: application/json' https://192.168.1.45:9440/api/nutanix/v3/apps/list -d "{\"kind\":\"app\",\"filter\":\"name==APR_Hotel\"}")"
+     - if echo "$var" | grep -q '"total_matches":1';then hasil="cocok";else hasil="gagal";fi
+     - echo $hasil
+     - pembanding="cocok"
+     - echo $pembanding
+     - chmod +x BluePrint_Launch.sh
+     - chmod +x update_image.sh
+     - if [ "$hasil" == "$pembanding" ]; then ./update_image.sh; else ./BluePrint_Launch.sh;fi
+    only:
+       refs:
+         - master
+       variables:
+         - $CI_COMMIT_MESSAGE =~ /bungkus & produksi/
+         - $CI_COMMIT_MESSAGE =~ /nyalip/
+    tags:
+      - vm_runner
+
+  Application Deployment Development:
+ 
+    stage: deploy
+    script:
+      - echo "$(pwd)"
+      - echo "$(ls)"
+      - echo $USER
+      - docker build -t laravel_image_development .
+      - docker tag laravel_image 192.168.2.113:5000/laravel_image_development
+      - docker push 192.168.2.113:5000/laravel_image_development
+      - >-
+      var="$(curl -u admin:Nut4nixP@ssw0rd -k -X POST -H 'Content-Type: application/json' https://192.168.1.45:9440/api/nutanix/v3/apps/list -d "{\"kind\":\"app\",\"filter\":\"name==APR_Hotel_Development\"}")"
+      - if echo "$var" | grep -q '"total_matches":1';then hasil="cocok";else hasil="gagal";fi
+      - echo $hasil
+      - pembanding="cocok"
+      - echo $pembanding
+      - chmod +x BluePrint_Launch.sh
+      - chmod +x update_image.sh
+      - if [ "$hasil" == "$pembanding" ]; then ./update_image_development.sh; else ./BluePrint_Launch_development.sh;fi
+    only:
+        refs:
+          - Development
+        variables:
+          - $CI_COMMIT_MESSAGE =~ /bungkus & produksi/
+          - $CI_COMMIT_MESSAGE =~ /nyalip/
+    tags:
+      - vm_runner
+ 
+  Application Deployment Stagging:
+
+    stage: deploy
+    script:
+      - echo "$(pwd)"
+      - echo "$(ls)"
+      - echo $USER
+      - docker build -t laravel_image_stagging .
+      - docker tag laravel_image 192.168.2.113:5000/laravel_image_stagging
+      - docker push 192.168.2.113:5000/laravel_image_stagging
+      - >-
+      var="$(curl -u admin:Nut4nixP@ssw0rd -k -X POST -H 'Content-Type: application/json' https://192.168.1.45:9440/api/nutanix/v3/apps/list -d "{\"kind\":\"app\",\"filter\":\"name==APR_Hotel_stagging\"}")"
+      - if echo "$var" | grep -q '"total_matches":1';then hasil="cocok";else hasil="gagal";fi
+      - echo $hasil
+      - pembanding="cocok"
+      - echo $pembanding
+      - chmod +x BluePrint_Launch.sh
+      - chmod +x update_image.sh
+      - if [ "$hasil" == "$pembanding" ]; then ./update_image_stagging.sh; else ./BluePrint_Launch_stagging.sh;fi
+    only:
+        refs:
+          - Stagging
+        variables:
+          - $CI_COMMIT_MESSAGE =~ /bungkus & produksi/
+          - $CI_COMMIT_MESSAGE =~ /nyalip/
+    tags:
+      - vm_runner
