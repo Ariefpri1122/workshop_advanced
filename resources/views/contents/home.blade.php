@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('content')
+@section('content') 
     <div class="row">
       <div class="medium-6 columns">
         <h4>[DEVELOPMENT ENVIRONMENT] - Aplikasi Arief Untuk Keperluan POC dan DEMO</h4>
