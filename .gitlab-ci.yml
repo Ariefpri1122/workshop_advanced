@@ -95,7 +95,7 @@
  
     stage: deploy_development
     variables:
-      GIT_DEPTH: 100
+      GIT_DEPTH: 1
 
     script:
       - echo "$(pwd)"
