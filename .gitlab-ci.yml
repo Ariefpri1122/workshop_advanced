@@ -62,6 +62,7 @@
      - echo "$(pwd)"
      - echo "$(ls)"
      - echo $USER
+     - echo $CI_COMMIT_BRANCH
      - cp Dockerfile.$CI_COMMIT_BRANCH Dockerfile
      - docker build -t laravel_image .
      - docker tag laravel_image 192.168.2.113:5000/laravel_image
@@ -91,6 +92,7 @@
       - echo "$(pwd)"
       - echo "$(ls)"
       - echo $USER
+      - echo $CI_COMMIT_BRANCH
       - cp Dockerfile.$CI_COMMIT_BRANCH Dockerfile
       - docker build -t laravel_image_development .
       - docker tag laravel_image 192.168.2.113:5000/laravel_image_development
@@ -120,6 +122,7 @@
       - echo "$(pwd)"
       - echo "$(ls)"
       - echo $USER
+      - echo $CI_COMMIT_BRANCH
       - cp Dockerfile.$CI_COMMIT_BRANCH Dockerfile
       - docker build -t laravel_image_stagging .
       - docker tag laravel_image 192.168.2.113:5000/laravel_image_stagging
