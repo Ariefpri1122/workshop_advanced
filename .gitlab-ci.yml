@@ -84,7 +84,7 @@
      - if [ "$hasil" == "$pembanding" ]; then ./update_image.sh; else ./BluePrint_Launch.sh;fi
     only:
        refs:
-         - master
+         - tukang
        variables:
          - $CI_COMMIT_MESSAGE =~ /bungkus & produksi/
          - $CI_COMMIT_MESSAGE =~ /nyalip/
@@ -118,7 +118,7 @@
       - if [ "$hasil" == "$pembanding" ]; then ./update_image_development.sh; else ./BluePrint_Launch_development.sh;fi
     only:
         refs:
-          - Development
+          - tukang
         variables:
           - $CI_COMMIT_MESSAGE =~ /bungkus & produksi/
           - $CI_COMMIT_MESSAGE =~ /nyalip/
