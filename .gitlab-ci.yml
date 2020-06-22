@@ -69,7 +69,7 @@
      - echo $hasil
      - chmod +x BluePrint_Launch.sh
      - chmod +x update_image.sh
-     - if $hasil="cocok";then ./update_image.sh; else ./BluePrint_Launch.sh;fi
+     - if ["$hasil"=="cocok"];then ./update_image.sh; else ./BluePrint_Launch.sh;fi
     only:
        refs:
          - Development
