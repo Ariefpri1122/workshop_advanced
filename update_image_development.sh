@@ -1,1 +1,4 @@
 ssh root@192.168.3.121 "kubectl set image deployment/apr-hotel-deployment-development container-hotel-development=192.168.2.113:5000/laravel_image_development:latest"
+ssh root@192.168.3.121 "kubectl set image deployment/apr-hotel-deployment-development container-hotel-development=192.168.2.113:5000/laravel_image_development"
+ssh root@192.168.3.121 "kubectl set image deployment/apr-hotel-deployment-development container-hotel-development=192.168.2.113:5000/laravel_image_development:latest"
+ssh root@192.168.3.121 "kubectl set image deployment/apr-hotel-deployment-development container-hotel-development=192.168.2.113:5000/laravel_image_development"
