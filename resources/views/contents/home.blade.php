@@ -3,7 +3,7 @@
 @section('content') 
     <div class="row">
       <div class="medium-6 columns">
-        <h4>[STAGGING ENVIRONMENT] - POC dan DEMO (FULL DEPLOYMENT)</h4>
+        <h4>[STAGGING'S ENVIRONMENT] - POC dan DEMO (FULL DEPLOYMENT)</h4>
         <img class="thumbnail" src="images/london.jpg">
       </div>
       <div class="medium-6 large-5 columns">
