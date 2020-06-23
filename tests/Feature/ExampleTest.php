@@ -24,7 +24,7 @@ class ExampleTest extends TestCase
     public function testNewClientForm()
     {
         $response = $this->get('/clients/new');
-        $response->assertStatus(200;
+        $response->assertStatus(200);
     }
 
 }
