@@ -3,8 +3,8 @@
 @section('content') 
     <div class="row">
       <div class="medium-6 columns">
-        <h4>[STAGGING ENVIRONMENT] - POC dan DEMO (Arief's POC)</h4>
-        <img class="thumbnail" src="images/london.jpg">
+        <h4>[DEVELOPMENT ENVIRONMENT] - POC dan DEMO (Arief's POC)</h4>
+        <img class="thumbnail" src="images/family.jpg">
       </div>
       <div class="medium-6 large-5 columns">
         </br>
