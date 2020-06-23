@@ -74,7 +74,7 @@
      - docker tag laravel_image_$CI_COMMIT_BRANCH 192.168.2.113:5000/laravel_image_$CI_COMMIT_BRANCH
      - docker push 192.168.2.113:5000/laravel_image_$CI_COMMIT_BRANCH
      - >-
-      var="$(curl -u admin:Nut4nixP@ssw0rd -k -X POST -H 'Content-Type: application/json' https://192.168.1.45:9440/api/nutanix/v3/apps/list -d "{\"kind\":\"app\",\"filter\":\"name==APR_Hotel_""$CI_COMMIT_BRANCH""\"}")"
+      var="$(curl -u admin:Nut4nixP@ssw0rd -k -X POST -H 'Content-Type: application/json' https://192.168.1.45:9440/api/nutanix/v3/apps/list -d "{\"kind\":\"app\",\"filter\":\"name==APR_Hotel_"$CI_COMMIT_BRANCH"\"}")"
      - if echo "$var" | grep -q '"total_matches":1';then hasil="cocok";else hasil="gagal";fi
      - echo $hasil
      - pembanding="cocok"
