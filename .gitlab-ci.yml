@@ -2,8 +2,6 @@
   - test
   - build
   - deploy
-  - deploy_development
-  - deploy_stagging
  
  Application Unit Testing:
     stage: test
