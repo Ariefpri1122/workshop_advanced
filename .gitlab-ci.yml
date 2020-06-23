@@ -79,7 +79,7 @@
      - pembanding="cocok"
      - echo $pembanding
      - chmod +x BluePrint_Launch_$CI_COMMIT_BRANCH.sh
-     - chmod +x update_image.sh
+     - chmod +x update_image_$CI_COMMIT_BRANCH.sh
      - if [ "$hasil" == "$pembanding" ]; then ./update_image_$CI_COMMIT_BRANCH.sh; else ./BluePrint_Launch_$CI_COMMIT_BRANCH.sh;fi
     only:
       refs:
