@@ -77,6 +77,7 @@
       var="$(curl -u admin:Nut4nixP@ssw0rd -k -X POST -H 'Content-Type: application/json' https://192.168.1.45:9440/api/nutanix/v3/apps/list -d "{\"kind\":\"app\",\"filter\":\"name==APR_HOTEL_"$CI_COMMIT_BRANCH"\"}")"
      - if echo "$var" | grep -q '"total_matches":1';then hasil="cocok";else hasil="gagal";fi
      - echo $hasil
+     - echo $var
      - pembanding="cocok"
      - echo $pembanding
      - chmod +x BluePrint_Launch_$CI_COMMIT_BRANCH.sh
