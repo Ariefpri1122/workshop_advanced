@@ -9,7 +9,7 @@
     stage: test
     image: 192.168.2.113:5000/laravel
     variables:
-      GIT_DEPTH: 100
+      GIT_DEPTH: 1
  
     script:
       - cp env.$CI_COMMIT_BRANCH .env
@@ -32,7 +32,7 @@
     image: 192.168.2.113:5000/alpine
     variables:
       S3_BUCKET_NAME: "artifacts"
-      GIT_DEPTH: 100
+      GIT_DEPTH: 1
     only:
        refs:
          - Development
@@ -70,9 +70,9 @@
      - echo $USER
      - echo $CI_COMMIT_BRANCH
      - cp Dockerfile.$CI_COMMIT_BRANCH Dockerfile
-     - docker build --no-cache -t laravel_image_production .
-     - docker tag laravel_image_production 192.168.2.113:5000/laravel_image_production
-     - docker push 192.168.2.113:5000/laravel_image_production
+     - docker build -t laravel_image_$CI_COMMIT_BRANCH .
+     - docker tag laravel_image_$CI_COMMIT_BRANCH 192.168.2.113:5000/laravel_image_$CI_COMMIT_BRANCH
+     - docker push 192.168.2.113:5000/laravel_image_$CI_COMMIT_BRANCH
      - >-
       var="$(curl -u admin:Nut4nixP@ssw0rd -k -X POST -H 'Content-Type: application/json' https://192.168.1.45:9440/api/nutanix/v3/apps/list -d "{\"kind\":\"app\",\"filter\":\"name==APR_Hotel\"}")"
      - if echo "$var" | grep -q '"total_matches":1';then hasil="cocok";else hasil="gagal";fi
@@ -81,79 +81,13 @@
      - echo $pembanding
      - chmod +x BluePrint_Launch.sh
      - chmod +x update_image.sh
-     - if [ "$hasil" == "$pembanding" ]; then ./update_image.sh; else ./BluePrint_Launch.sh;fi
+     - if [ "$hasil" == "$pembanding" ]; then ./update_image.sh; else ./BluePrint_Launch_$CI_COMMIT_BRANCH.sh;fi
     only:
-       refs:
-         - tukang
-       variables:
-         - $CI_COMMIT_MESSAGE =~ /bungkus & produksi/
-         - $CI_COMMIT_MESSAGE =~ /nyalip/
+      refs:
+        - master
+      variables:
+        - $CI_COMMIT_MESSAGE =~ /bungkus & produksi/
+        - $CI_COMMIT_MESSAGE =~ /nyalip/
     tags:
       - vm_runner
 
- Application Deployment Development:
- 
-    stage: deploy_development
-    variables:
-      GIT_DEPTH: 1
-
-    script:
-      - echo "$(pwd)"
-      - echo "$(ls)"
-      - echo "$(cat resources/views/contents/home.blade.php)"
-      - echo $USER
-      - echo $CI_COMMIT_BRANCH
-      - cp Dockerfile.$CI_COMMIT_BRANCH Dockerfile
-      - docker build --no-cache -t laravel_image_development .
-      - docker tag laravel_image_development 192.168.2.113:5000/laravel_image_development
-      - docker push 192.168.2.113:5000/laravel_image_development
-      - >-
-       var="$(curl -u admin:Nut4nixP@ssw0rd -k -X POST -H 'Content-Type: application/json' https://192.168.1.45:9440/api/nutanix/v3/apps/list -d "{\"kind\":\"app\",\"filter\":\"name==APR_Hotel_Development\"}")"
-      - if echo "$var" | grep -q '"total_matches":1';then hasil="cocok";else hasil="gagal";fi
-      - echo $hasil
-      - pembanding="cocok"
-      - echo $pembanding
-      - chmod +x BluePrint_Launch_development.sh
-      - chmod +x update_image_development.sh
-      - if [ "$hasil" == "$pembanding" ]; then ./update_image_development.sh; else ./BluePrint_Launch_development.sh;fi
-    only:
-        refs:
-          - tukang
-        variables:
-          - $CI_COMMIT_MESSAGE =~ /bungkus & produksi/
-          - $CI_COMMIT_MESSAGE =~ /nyalip/
-    tags:
-      - vm_runner
-      
- Application Deployment Stagging:
-
-    stage: deploy_stagging
-    variables:
-      GIT_DEPTH: 1
-
-    script:
-      - echo "$(pwd)"
-      - echo "$(ls)"
-      - echo $USER
-      - echo $CI_COMMIT_BRANCH
-      - cp Dockerfile.$CI_COMMIT_BRANCH Dockerfile
-      - docker build --no-cache -t laravel_image_stagging -f .
-      - docker tag laravel_image 192.168.2.113:5000/laravel_image_stagging
-      - docker push 192.168.2.113:5000/laravel_image_stagging
-      - >-
-       var="$(curl -u admin:Nut4nixP@ssw0rd -k -X POST -H 'Content-Type: application/json' https://192.168.1.45:9440/api/nutanix/v3/apps/list -d "{\"kind\":\"app\",\"filter\":\"name==APR_Hotel_stagging\"}")"
-      - if echo "$var" | grep -q '"total_matches":1';then hasil="cocok";else hasil="gagal";fi
-      - echo $hasil
-      - pembanding="cocok"
-      - echo $pembanding
-      - chmod +x BluePrint_Launch_stagging.sh
-      - chmod +x update_image_stagging.sh
-      - if [ "$hasil" == "$pembanding" ]; then ./update_image_stagging.sh; else ./BluePrint_Launch_stagging.sh;fi
-    only:
-        refs:
-          - Stagging
-        variables:
-          - $CI_COMMIT_MESSAGE =~ /bungkus & produksi/
-          - $CI_COMMIT_MESSAGE =~ /nyalip/
-    tags:
-      - vm_runner
