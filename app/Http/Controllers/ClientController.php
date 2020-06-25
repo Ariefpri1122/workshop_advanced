@@ -30,10 +30,11 @@ class ClientController extends Controller
         return view('client/index', $data);
     }
 
-    public function api_view()
+    public function api_view( Title $titles, Client $client )
     {
         $data = [];
-        $data2['titles'] = $this->titles = $titles->all();
+        $data2 = [];
+        $data2['titles'] = $this->titles->all();
         $data['clients'] = $this->client->all();
         return $data2;
         return $data;
