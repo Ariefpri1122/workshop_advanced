@@ -37,7 +37,7 @@ class ClientController extends Controller
         $data['clients'] = $this->client->all();
         $data2['titles'] = $this->titles->all();
         return $data2;
-        return $data;
+        //return $data;
     }
 
     public function api_fetch()
