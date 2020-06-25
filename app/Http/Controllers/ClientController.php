@@ -35,6 +35,7 @@ class ClientController extends Controller
         $data = [];
 
         $data['clients'] = $this->client->all();
+        return $titles;
         return $data;
     }
 
