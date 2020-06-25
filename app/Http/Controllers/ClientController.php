@@ -33,8 +33,9 @@ class ClientController extends Controller
     public function api_view()
     {
         $data = [];
-
+        $titles = [];
         $data['clients'] = $this->client->all();
+        $titles['titles'] = $this->title->all();
         return $titles;
         return $data;
     }
