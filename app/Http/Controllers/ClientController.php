@@ -24,32 +24,47 @@ class ClientController extends Controller
 
     public function index()
     {
-        $data = [];
+        $hasil = [];
 
         $data['clients'] = $this->client->all();
+
+        //$api = new api();
+        //$request = $api->get('http://192.168.1.126:9999/api/api_view');
+        //$response = $request->getBody()->getContents();
+
+        //$hasil = json_decode($response);
         return view('client/index', $data);
+        //return view('client/index')->with('hasil', $hasil);
+
     }
 
     public function api_view()
     {
         $data = [];
-        $data['clients'] = $this->client->all();
+        $data= $this->client->all();
+        return $data;
+    }
+
+    public function api_show($id)
+    {
+        $data = [];
+        $data= $this->client->find($id);
         return $data;
     }
 
     public function api_fetch()
     {
-        $data = [];
+        $hasil = [];
 
-        //$data['clients'] = $this->client->all();
-        //return $data;
         $api = new api();
         $request = $api->get('http://192.168.1.126:9999/api/api_view');
         $response = $request->getBody()->getContents();
-        $hasil = json_decode($response, true);
-        return $hasil;
-    }
 
+        $hasil = json_decode($response);
+
+        dd($hasil);
+        //return view('client/hasil')->with('hasil', $hasil);
+    }
 
     public function export()
     {
@@ -72,7 +87,7 @@ class ClientController extends Controller
         $data['city'] = $request->input('city');
         $data['state'] = $request->input('state');
         $data['email'] = $request->input('email');
-        
+
 
 
         if( $request->isMethod('post') )
@@ -93,7 +108,7 @@ class ClientController extends Controller
             );
 
             $client->insert($data);
-            
+
             return redirect('clients');
         }
         $data['titles'] = $this->titles;
@@ -121,9 +136,9 @@ class ClientController extends Controller
         $data['state'] = $client_data->state;
         $data['email'] = $client_data->email;
 
-        $request->session()->put('last_updated', $client_data->name . ' ' . 
+        $request->session()->put('last_updated', $client_data->name . ' ' .
         $client_data->last_name);
-        
+
         return view('client/form', $data);
     }
 
@@ -139,7 +154,7 @@ class ClientController extends Controller
         $data['city'] = $request->input('city');
         $data['state'] = $request->input('state');
         $data['email'] = $request->input('email');
-        
+
 
 
         if( $request->isMethod('post') )
@@ -174,7 +189,7 @@ class ClientController extends Controller
 
             return redirect('clients');
         }
-        
+
         return view('client/form', $data);
     }
 

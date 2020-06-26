@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::middleware('auth')->group( function(){
     Route::get('/', 'ContentsController@home')->name('home');
     Route::get('/clients', 'ClientController@index')->name('clients');
     Route::get('/clients/new', 'ClientController@newClient')->name('new_client');
@@ -26,7 +26,7 @@
     Route::get('/upload', 'ContentsController@upload')->name('upload');
     Route::post('/upload', 'ContentsController@upload')->name('upload');
 
-
+} );
 
 
 
@@ -44,27 +44,24 @@ Route::get('/home', function () {
     return view('welcome', $data);
 });
 
-Route::get('/di', 'ClientController@di');
-
-Route::get('/all', 'ctrlntnx@all');
-Route::get('/show/{id}', 'ctrlntnx@show');
-
 Route::get('/api_fetch', 'ClientController@api_fetch');
 
+Route::get('/se', 'ctrlntnx@se');
+
 Route::get('/facades/db', function () {
-    
+
     return DB::select('SELECT * from table');
 });
 
 Route::get('/facades/encrypt', function () {
-    
+
     return Crypt::encrypt('123456789');
 });
 
 //eyJpdiI6IjVuV1lWR3JXRlFmdGFHbXljN0Vodnc9PSIsInZhbHVlIjoibEpLQWJSdmgybDBXRHdjNDJadERwM0lZRWlLZnA5d2hcL1wvMHdCNEpCSklFPSIsIm1hYyI6ImE1NDQxZDhiMTAyNjQyNTZkOTZlY2NkZTdmNmIxYThhNjU1OTI2MGI2OTFmYWUxNmRlODk1ZDNiODgxMTY3YzAifQ==
 
 Route::get('/facades/decrypt', function () {
-    
+
     return Crypt::decrypt('eyJpdiI6IjVuV1lWR3JXRlFmdGFHbXljN0Vodnc9PSIsInZhbHVlIjoibEpLQWJSdmgybDBXRHdjNDJadERwM0lZRWlLZnA5d2hcL1wvMHdCNEpCSklFPSIsIm1hYyI6ImE1NDQxZDhiMTAyNjQyNTZkOTZlY2NkZTdmNmIxYThhNjU1OTI2MGI2OTFmYWUxNmRlODk1ZDNiODgxMTY3YzAifQ==');
 });
 Auth::routes();

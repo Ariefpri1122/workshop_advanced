@@ -18,3 +18,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/api_view','ClientController@api_view');
+Route::get('/api_view/{id}','ClientController@api_show');
