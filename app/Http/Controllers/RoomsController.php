@@ -26,7 +26,7 @@ class RoomsController extends Controller
       $api = new api();
       $request = $api->get('http://192.168.1.126:8888/api/api_view/' . $client_id );
       $response = $request->getBody()->getContents();
-      $data['rooms'] = json_decode($response);
+      $data['client'] = json_decode($response);
       //dd($data);
       */
       $data['client'] = $client->find($client_id);
