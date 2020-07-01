@@ -32,7 +32,7 @@ class ClientController extends Controller
         //$request = $api->get('http://192.168.1.126:8888/api/api_view');
         //$response = $request->getBody()->getContents();
 
-        //$hasil = json_decode($response);
+        //$data = json_decode($response);
         //return view('client/index')->with('clients', $data);
 
         return view('client/index', $data);
