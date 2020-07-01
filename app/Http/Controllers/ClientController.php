@@ -33,7 +33,7 @@ class ClientController extends Controller
         //$response = $request->getBody()->getContents();
 
         //$hasil = json_decode($response);
-        //return view('client/index')->with('hasil', $hasil);
+        //return view('client/index')->with('clients', $data);
 
         return view('client/index', $data);
 
