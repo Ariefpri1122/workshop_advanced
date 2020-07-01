@@ -24,7 +24,7 @@ class ClientController extends Controller
 
     public function index()
     {
-        //$hasil = [];
+        //$data = [];
 
         $data['clients'] = $this->client->all();
 
