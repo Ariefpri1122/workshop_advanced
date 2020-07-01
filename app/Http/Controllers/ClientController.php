@@ -24,17 +24,18 @@ class ClientController extends Controller
 
     public function index()
     {
-        $hasil = [];
+        //$hasil = [];
 
         $data['clients'] = $this->client->all();
 
         //$api = new api();
-        //$request = $api->get('http://192.168.1.126:9999/api/api_view');
+        //$request = $api->get('http://192.168.1.126:8888/api/api_view');
         //$response = $request->getBody()->getContents();
 
         //$hasil = json_decode($response);
-        return view('client/index', $data);
         //return view('client/index')->with('hasil', $hasil);
+
+        return view('client/index', $data);
 
     }
 
@@ -57,7 +58,7 @@ class ClientController extends Controller
         $hasil = [];
 
         $api = new api();
-        $request = $api->get('http://192.168.1.126:9999/api/api_view');
+        $request = $api->get('http://192.168.1.126:8888/api/api_view');
         $response = $request->getBody()->getContents();
 
         $hasil = json_decode($response);
@@ -109,6 +110,14 @@ class ClientController extends Controller
 
             $client->insert($data);
 
+            /*
+            $api = new api(["base_uri" => 'http://192.168.1.126:8888/']);
+            $options = [
+                'form_params' => $data
+                ];
+            $response = $api->post("/api/api_new/", $options);
+            */
+
             return redirect('clients');
         }
         $data['titles'] = $this->titles;
@@ -123,6 +132,16 @@ class ClientController extends Controller
 
     public function show($client_id, Request $request)
     {
+
+        /*$hasil = [];
+
+        $api = new api();
+        $request = $api->get('http://192.168.1.126:8888/api/api_view/' . $client_id );
+        $response = $request->getBody()->getContents();
+        $client_data = json_decode($response);
+
+        //dd($client_data);
+        */
         $data = []; $data['client_id'] = $client_id;
         $data['titles'] = $this->titles;
         $data['modify'] = 1;
@@ -136,14 +155,16 @@ class ClientController extends Controller
         $data['state'] = $client_data->state;
         $data['email'] = $client_data->email;
 
-        $request->session()->put('last_updated', $client_data->name . ' ' .
-        $client_data->last_name);
+        //$request->session()->put('last_updated', $client_data->name . ' ' .
+        //$client_data->last_name);
+
 
         return view('client/form', $data);
     }
 
     public function modify( Request $request, $client_id, Client $client )
     {
+
         $data = [];
 
         $data['title'] = $request->input('title');
@@ -155,7 +176,75 @@ class ClientController extends Controller
         $data['state'] = $request->input('state');
         $data['email'] = $request->input('email');
 
+        //dd($data);
+        /*
+        $api = new api(["base_uri" => 'http://192.168.1.126:8888/']);
+        $options = [
+            'form_params' => $data
+            ];
+        $response = $api->post("/api/api_view/" . $client_id, $options);
+        //dd($response);
+        return redirect('clients');
+        */
 
+        if( $request->isMethod('post') )
+        {
+            //dd($data);
+            $this->validate(
+                $request,
+                [
+                    'name' => 'required|min:5',
+                    'last_name' => 'required',
+                    'address' => 'required',
+                    'zip_code' => 'required',
+                    'city' => 'required',
+                    'state' => 'required',
+                    'email' => 'required',
+
+                ]
+            );
+
+            $client_data = $this->client->find($client_id);
+            /*
+            $hasil = [];
+
+            $api = new api();
+            $request = $api->get('http://192.168.1.126:8888/api/api_view/' . $client_id );
+            $response = $request->getBody()->getContents();
+            $client_data = json_decode($response);
+
+            //dd($client_data);
+            */
+            $client_data->title = $request->input('title');
+            $client_data->name = $request->input('name');
+            $client_data->last_name = $request->input('last_name');
+            $client_data->address = $request->input('address');
+            $client_data->zip_code = $request->input('zip_code');
+            $client_data->city = $request->input('city');
+            $client_data->state = $request->input('state');
+            $client_data->email = $request->input('email');
+
+            $client_data->save();
+
+            return redirect('clients');
+        }
+
+        return view('client/form', $data);
+    }
+
+    public function api_modify( Request $request, $client_id, Client $client )
+    {
+
+        $data = [];
+
+        $data['title'] = $request->input('title');
+        $data['name'] = $request->input('name');
+        $data['last_name'] = $request->input('last_name');
+        $data['address'] = $request->input('address');
+        $data['zip_code'] = $request->input('zip_code');
+        $data['city'] = $request->input('city');
+        $data['state'] = $request->input('state');
+        $data['email'] = $request->input('email');
 
         if( $request->isMethod('post') )
         {
@@ -186,11 +275,49 @@ class ClientController extends Controller
             $client_data->email = $request->input('email');
 
             $client_data->save();
-
-            return redirect('clients');
+            //dd($client_data);
+            //return redirect('clients');
         }
 
-        return view('client/form', $data);
+        //return view('client/form', $data);
     }
 
+  public function api_new( Request $request, Client $client )
+  {
+      $data = [];
+
+      $data['title'] = $request->input('title');
+      $data['name'] = $request->input('name');
+      $data['last_name'] = $request->input('last_name');
+      $data['address'] = $request->input('address');
+      $data['zip_code'] = $request->input('zip_code');
+      $data['city'] = $request->input('city');
+      $data['state'] = $request->input('state');
+      $data['email'] = $request->input('email');
+
+      if( $request->isMethod('post') )
+      {
+          //dd($data);
+          $this->validate(
+              $request,
+              [
+                  'name' => 'required|min:5',
+                  'last_name' => 'required',
+                  'address' => 'required',
+                  'zip_code' => 'required',
+                  'city' => 'required',
+                  'state' => 'required',
+                  'email' => 'required',
+
+              ]
+          );
+
+          $client->insert($data);
+
+          //return redirect('clients');
+      }
+      $data['titles'] = $this->titles;
+      $data['modify'] = 0;
+      //return view('client/form', $data);
+  }
 }
