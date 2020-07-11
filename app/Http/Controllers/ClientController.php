@@ -70,13 +70,27 @@ class ClientController extends Controller
     {
         $data = [];
         $data= $this->client->all();
+        
+
+        //$data = Cache::remember('api_view',10 * 60, function () {
+        //    return client::all();
+        //});
+        
         return $data;
     }
 
     public function api_show($id)
     {
+        
         $data = [];
-        $data= $this->client->find($id);
+        
+        //$data= $this->client->find($id);
+        
+        $data = Cache::remember('api_show'.$id,10 * 60, function() use ($id) {
+            //dd($id);
+            return client::find($id);
+        });
+
         return $data;
     }
 
