@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\facades\Redis;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,7 +12,15 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::middleware('auth')->group( function(){
+
+Route::get('redis', function () {
+    $p = Redis::incr('p');
+    return $p;
+});
+
+Route::get('query_biasa','ClientController@query_biasa');
+Route::get('query_redis','ClientController@query_redis');
+
     Route::get('/', 'ContentsController@home')->name('home');
     Route::get('/clients', 'ClientController@index')->name('clients');
     Route::get('/clients/new', 'ClientController@newClient')->name('new_client');
@@ -25,8 +35,6 @@ Route::middleware('auth')->group( function(){
     Route::get('export', 'ClientController@export');
     Route::get('/upload', 'ContentsController@upload')->name('upload');
     Route::post('/upload', 'ContentsController@upload')->name('upload');
-
-} );
 
 
 

@@ -22,6 +22,7 @@ return array(
     '801c31d8ed748cfa537fa45402288c95' => $vendorDir . '/psy/psysh/src/functions.php',
     'e39a8b23c42d4e1452234d762b03835a' => $vendorDir . '/ramsey/uuid/src/functions.php',
     'f598d06aa772fa33d905e87be6398fb1' => $vendorDir . '/symfony/polyfill-intl-idn/bootstrap.php',
+    '4a1f389d6ce373bda9e57857d3b61c84' => $vendorDir . '/barryvdh/laravel-debugbar/src/helpers.php',
     '37a3dc5111fe8f707ab4c132ef1dbc62' => $vendorDir . '/guzzlehttp/guzzle/src/functions_include.php',
     'fe3b74234e1140ee7cfd9cc2d4c2e566' => $vendorDir . '/kylekatarnls/laravel-carbon-2/src/Carbon.php',
     'f0906e6318348a765ffb6eb24e0d0938' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/helpers.php',

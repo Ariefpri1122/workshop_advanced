@@ -7,6 +7,8 @@ use App\Title as Title;
 use App\Client as Client;
 use GuzzleHttp\Client as Api;
 use GuzzleHttp\Exception\RequestException;
+use Illuminate\Support\Facades\Cache;
+
 
 class ClientController extends Controller
 {
@@ -22,11 +24,36 @@ class ClientController extends Controller
         dd($this->titles);
     }
 
+    public function query_biasa()
+    {
+        $query = Client::all();
+        foreach ($query as $q) {
+            echo "<li>{$q->name}</li>";
+        }
+    }
+
+    public function query_redis()
+    {
+        $query = Cache::remember('redis_key',10 * 60, function () {
+            return Client::all();
+        });
+
+        foreach ($query as $q) {
+            echo "<li>{$q->name}</li>";
+        }
+    }
+
     public function index()
     {
         //$data = [];
 
         $data['clients'] = $this->client->all();
+
+        
+        //$data['clients'] = Cache::remember('clients',10 * 60, function () {
+        //    return client::all();
+        //});
+        
 
         //$api = new api();
         //$request = $api->get('http://192.168.1.126:8888/api/api_view');

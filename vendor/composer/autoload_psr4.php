@@ -37,6 +37,7 @@ return array(
     'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
     'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src'),
     'Prophecy\\' => array($vendorDir . '/phpspec/prophecy/src/Prophecy'),
+    'Predis\\' => array($vendorDir . '/predis/predis/src'),
     'PhpParser\\' => array($vendorDir . '/nikic/php-parser/lib/PhpParser'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
     'League\\Flysystem\\' => array($vendorDir . '/league/flysystem/src'),
@@ -52,7 +53,9 @@ return array(
     'Doctrine\\Instantiator\\' => array($vendorDir . '/doctrine/instantiator/src/Doctrine/Instantiator'),
     'Doctrine\\Common\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib/Doctrine/Common/Inflector'),
     'DeepCopy\\' => array($vendorDir . '/myclabs/deep-copy/src/DeepCopy'),
+    'DebugBar\\' => array($vendorDir . '/maximebf/debugbar/src/DebugBar'),
     'Cron\\' => array($vendorDir . '/mtdowling/cron-expression/src/Cron'),
+    'Barryvdh\\Debugbar\\' => array($vendorDir . '/barryvdh/laravel-debugbar/src'),
     'App\\' => array($baseDir . '/app'),
     '' => array($vendorDir . '/nesbot/carbon/src'),
 );

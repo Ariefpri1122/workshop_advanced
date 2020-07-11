@@ -18,13 +18,13 @@ class ExampleTest extends TestCase
     {
         $response = $this->get('/');
 
-        $response->assertStatus(302);
+        $response->assertStatus(200);
     }
 
     public function testNewClientForm()
     {
         $response = $this->get('/clients/new');
-        $response->assertStatus(302);
+        $response->assertStatus(200);
     }
 
 }
