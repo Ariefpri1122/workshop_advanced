@@ -69,12 +69,12 @@ class ClientController extends Controller
     public function api_view()
     {
         $data = [];
-        $data= $this->client->all();
+        //$data= $this->client->all();
         
 
-        //$data = Cache::remember('api_view',10 * 60, function () {
-        //    return client::all();
-        //});
+        $data = Cache::remember('api_view',10 * 60, function () {
+            return client::all();
+        });
         
         return $data;
     }
