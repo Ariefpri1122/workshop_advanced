@@ -3,8 +3,8 @@
 @section('content') 
     <div class="row">
       <div class="medium-6 columns">
-        <h4>[PRODUCTION ENVIRONMENT - CICD DEMO (EDIT)] -  BOOTCAMP POC dan DEMO</h4>
-        <img class="thumbnail" src="images/family.jpg">
+        <h4>[PRODUCTION ENVIRONMENT - DATA ACCESS WRITE] -  POC dan DEMO</h4>
+        <img class="thumbnail" src="images/together.jpg">
       </div>
       <div class="medium-6 large-5 columns">
         </br>
