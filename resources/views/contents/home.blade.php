@@ -4,7 +4,7 @@
     <div class="row">
       <div class="medium-6 columns">
         <h4>[PRODUCTION ENVIRONMENT - MASTER] -  ARIEF'S POC dan DEMO</h4>
-        <img class="thumbnail" src="images/together.jpg">
+        <img class="thumbnail" src="images/umi.jpg">
       </div>
       <div class="medium-6 large-5 columns">
         </br>
