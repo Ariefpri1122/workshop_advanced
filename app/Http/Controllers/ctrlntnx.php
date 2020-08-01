@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\modelntnx;
-use App\se;
+use App\se as se;
 
 class ctrlntnx extends Controller
 {
@@ -12,12 +11,11 @@ class ctrlntnx extends Controller
 
     public function all()
     {
-        return se::all();
-    }
+        //return se::all();
 
-    public function show($id)
-    {
-        return se::find($id);
+        $data = se::all();
+        dd($data);
+        //return view ('view_se')->with('data', $data);
     }
     
     /*
