@@ -1,6 +1,6 @@
 <center><h1>
-LANDING PAGE SE </br>
+LANDING PAGE SE ALL RECORDS</br>
 @foreach ($data as $data)
-{{$data}} </br>
+{{$data->nama}} </br>
 @endforeach
 </h1></center>

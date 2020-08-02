@@ -14,17 +14,14 @@ class ctrlntnx extends Controller
         //return se::all();
 
         $data = se::all();
-        dd($data);
-        //return view ('view_se')->with('data', $data);
+        //dd($data);
+        return view ('view_se')->with('data', $data);
     }
     
-    /*
-    public function se(modelntnx $modelntnx)
+    public function show($id)
     {
-        $this->modelntnx = $modelntnx->list_se();
-        $data = $this->modelntnx;
-
-        return view ('view_se')->with('data',$data);
+        $data = se::find($id);
+        //dd($data->nama);
+        return view ('find_se')->with('data', $data->nama);
     }
-    */
 }
