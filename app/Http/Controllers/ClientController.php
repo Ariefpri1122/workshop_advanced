@@ -178,6 +178,9 @@ class ClientController extends Controller
 
         //dd($client_data);
         */
+
+        $client_data = $this->client->find($client_id);
+
         $data = []; $data['client_id'] = $client_id;
         $data['titles'] = $this->titles;
         $data['modify'] = 1;
@@ -190,7 +193,7 @@ class ClientController extends Controller
         $data['state'] = $client_data->state;
         $data['email'] = $client_data->email;
 
-        $client_data = $this->client->find($client_id);
+        
 
         //$request->session()->put('last_updated', $client_data->name . ' ' .
         //$client_data->last_name);
