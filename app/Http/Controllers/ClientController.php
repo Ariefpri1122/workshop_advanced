@@ -34,7 +34,7 @@ class ClientController extends Controller
 
     public function query_redis()
     {
-        $query = Cache::remember('redis_key',10 * 60, function () {
+        $query = Cache::remember("list_client",10 * 60, function () {
             return Client::all();
         });
 
