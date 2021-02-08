@@ -47,12 +47,12 @@ class ClientController extends Controller
     {
         //$data = [];
 
-        $data['clients'] = $this->client->all();
+        //$data['clients'] = $this->client->all();
 
         
-        //$data['clients'] = Cache::remember('clients',10 * 60, function () {
-        //    return client::all();
-        //});
+        $data['clients'] = Cache::remember('clients',10 * 60, function () {
+            return client::all();
+        });
         
 
         //$api = new api();
