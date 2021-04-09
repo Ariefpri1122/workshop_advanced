@@ -18,6 +18,10 @@ Route::get('redis', function () {
     return $p;
 });
 
+Route::get('/clear-cache', function() {
+    $exitCode = Artisan::call('cache:clear');
+    return "Cache is cleared";
+
 Route::get('query_biasa','ClientController@query_biasa');
 Route::get('query_redis','ClientController@query_redis');
 
