@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Cache;
 class ClientController extends Controller
 {
     //
-    public function __construct( Title $titles, Client $client )
+    public function __construct( Title $titles, Client $client, Client2 $client2 )
     {
         $this->titles = $titles->all();
         $this->client = $client;
