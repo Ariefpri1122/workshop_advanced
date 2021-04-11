@@ -14,19 +14,20 @@ use Illuminate\Support\Facades\Cache;
 class ClientController extends Controller
 {
     
-    //public function __construct( Title $titles, Client $client, Client2 $client2 )
-    //{
-    //    $this->titles = $titles->all();
-    //    $this->client = $client;
-    //    $this->client2 = $client2;
-    //}
+    public function __construct( Title $titles, Client $client, Client2 $client2 )
+    {
+        $this->titles = $titles->all();
+        $this->client = $client;
+        $this->client2 = $client2;
+    }
     
+    /*
     public function __construct( Title $titles, Client $client )
     {
         $this->titles = $titles->all();
         $this->client = $client;
     }
-
+    */
 
     public function di()
     {
@@ -56,8 +57,8 @@ class ClientController extends Controller
     {
         //$data = [];
 
-        $data['clients'] = $this->client->all();
-        //$data['clients'] = $this->client2->all();
+        //$data['clients'] = $this->client->all();
+        $data['clients'] = $this->client2->all();
 
         //$data['clients'] = Cache::remember('clients',10 * 60, function () {
         //    return client::all();
@@ -188,7 +189,7 @@ class ClientController extends Controller
         //dd($client_data);
         */
 
-        $client_data = $this->client->find($client_id);
+        $client_data = $this->client2->find($client_id);
 
         $data = []; $data['client_id'] = $client_id;
         $data['titles'] = $this->titles;
@@ -253,7 +254,7 @@ class ClientController extends Controller
                 ]
             );
 
-            $client_data = $this->client->find($client_id);
+            $client_data = $this->client2->find($client_id);
             /*
             $hasil = [];
 
