@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Title as Title;
 use App\Client as Client;
-use App\Client2 as Client2;
 
 use GuzzleHttp\Client as Api;
 use GuzzleHttp\Exception\RequestException;
@@ -49,8 +48,7 @@ class ClientController extends Controller
     {
         //$data = [];
 
-        //$data['clients'] = $this->client->all();
-        $data['clients'] = $this->client2->all();
+        $data['clients'] = $this->client->all();
         
         //$data['clients'] = Cache::remember('clients',10 * 60, function () {
         //    return client::all();
