@@ -48,8 +48,8 @@ class ClientController extends Controller
     {
         //$data = [];
 
-        $data['clients'] = $this->Client2->all();
-        
+        //$data['clients'] = $this->client->all();
+        $data['clients'] = Client2::all();
         //$data['clients'] = Cache::remember('clients',10 * 60, function () {
         //    return client::all();
         //});
