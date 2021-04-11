@@ -254,7 +254,7 @@ class ClientController extends Controller
                 ]
             );
 
-            $client_data = $this->client2->find($client_id);
+            $client_data = $this->client->find($client_id);
             /*
             $hasil = [];
 
@@ -313,7 +313,7 @@ class ClientController extends Controller
                 ]
             );
 
-            $client_data = $this->client2->find($client_id);
+            $client_data = $this->client->find($client_id);
 
             $client_data->title = $request->input('title');
             $client_data->name = $request->input('name');
