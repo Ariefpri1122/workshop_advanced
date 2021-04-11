@@ -18,6 +18,7 @@ class ClientController extends Controller
     {
         $this->titles = $titles->all();
         $this->client = $client;
+        $this->client2 = $client2;
     }
 
     public function di()
@@ -48,7 +49,7 @@ class ClientController extends Controller
     {
         //$data = [];
 
-        $data['clients'] = $this->client->all();
+        $data['clients'] = $this->client2->all();
 
         //$data['clients'] = Cache::remember('clients',10 * 60, function () {
         //    return client::all();
