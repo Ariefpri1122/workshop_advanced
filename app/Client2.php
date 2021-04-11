@@ -8,6 +8,7 @@ class Client2 extends Model
 {
     //
     protected $connection = 'pgsql2';
+    protected $table = 'clients';
 
     public function reservations()
     {
