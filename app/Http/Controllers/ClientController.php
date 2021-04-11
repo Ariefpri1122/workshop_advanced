@@ -79,7 +79,7 @@ class ClientController extends Controller
     public function api_view()
     {
         $data = [];
-        $data= $this->client->all();
+        $data= $this->client2->all();
         
 
         //$data = Cache::remember('api_view',10 * 60, function () {
@@ -94,7 +94,7 @@ class ClientController extends Controller
         
         $data = [];
         
-        $data= $this->client->find($id);
+        $data= $this->client2->find($id);
 
         return $data;
     }
@@ -117,7 +117,7 @@ class ClientController extends Controller
     {
         $data = [];
 
-        $data['clients'] = $this->client->all();
+        $data['clients'] = $this->client2->all();
         header('Content-Disposition: attachment;filename=export.xls');
         return view('client/export', $data);
     }
@@ -313,7 +313,7 @@ class ClientController extends Controller
                 ]
             );
 
-            $client_data = $this->client->find($client_id);
+            $client_data = $this->client2->find($client_id);
 
             $client_data->title = $request->input('title');
             $client_data->name = $request->input('name');
