@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Title as Title;
 use App\Client as Client;
-use App\Client2 as Client2;
+//use App\Client2 as Client2;
 use GuzzleHttp\Client as Api;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Facades\Cache;
@@ -13,21 +13,21 @@ use Illuminate\Support\Facades\Cache;
 
 class ClientController extends Controller
 {
-    
+    /*
     public function __construct( Title $titles, Client $client, Client2 $client2 )
     {
         $this->titles = $titles->all();
         $this->client = $client;
         $this->client2 = $client2;
     }
+    */
     
-    /*
     public function __construct( Title $titles, Client $client )
     {
         $this->titles = $titles->all();
         $this->client = $client;
     }
-    */
+    
 
     public function di()
     {
@@ -57,8 +57,8 @@ class ClientController extends Controller
     {
         //$data = [];
 
-        //$data['clients'] = $this->client->all();
-        $data['clients'] = $this->client2->all();
+        $data['clients'] = $this->client->all();
+        //$data['clients'] = $this->client2->all();
 
         //$data['clients'] = Cache::remember('clients',10 * 60, function () {
         //    return client::all();
@@ -79,7 +79,7 @@ class ClientController extends Controller
     public function api_view()
     {
         $data = [];
-        $data= $this->client2->all();
+        $data= $this->client->all();
         
 
         //$data = Cache::remember('api_view',10 * 60, function () {
@@ -94,7 +94,7 @@ class ClientController extends Controller
         
         $data = [];
         
-        $data= $this->client2->find($id);
+        $data= $this->client->find($id);
 
         return $data;
     }
@@ -117,7 +117,7 @@ class ClientController extends Controller
     {
         $data = [];
 
-        $data['clients'] = $this->client2->all();
+        $data['clients'] = $this->client->all();
         header('Content-Disposition: attachment;filename=export.xls');
         return view('client/export', $data);
     }
@@ -189,7 +189,7 @@ class ClientController extends Controller
         //dd($client_data);
         */
 
-        $client_data = $this->client2->find($client_id);
+        $client_data = $this->client->find($client_id);
 
         $data = []; $data['client_id'] = $client_id;
         $data['titles'] = $this->titles;
