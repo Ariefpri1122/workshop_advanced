@@ -3,7 +3,7 @@
 @section('content') 
     <div class="row">
       <div class="medium-6 columns">
-        <h4>[STAGGING ENVIRONMENT] - WRITE ACCESS LAYER</h4>
+        <h4>[STAGGING ENVIRONMENT] - TARGET DATA</h4>
         <img class="thumbnail" src="images/together.jpg">
       </div>
       <div class="medium-6 large-5 columns">
