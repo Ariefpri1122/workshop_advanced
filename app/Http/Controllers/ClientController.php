@@ -13,21 +13,22 @@ use Illuminate\Support\Facades\Cache;
 
 class ClientController extends Controller
 {
-    /*
+    
     public function __construct( Title $titles, Client $client, Client2 $client2 )
     {
         $this->titles = $titles->all();
         $this->client = $client;
         $this->client2 = $client2;
     }
-    */
     
+    
+    /*
     public function __construct( Title $titles, Client $client )
     {
         $this->titles = $titles->all();
         $this->client = $client;
     }
-    
+    */
 
     public function di()
     {
