@@ -80,6 +80,19 @@ return [
             'sslmode' => 'prefer',
         ],
 
+        'pgsql3' => [
+            'driver' => 'pgsql',
+            'host' => env('DB_HOST3', '127.0.0.1'),
+            'port' => env('DB_PORT3', '5432'),
+            'database' => env('DB_DATABASE3', 'forge'),
+            'username' => env('DB_USERNAME3', 'forge'),
+            'password' => env('DB_PASSWORD3', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'schema' => 'public',
+            'sslmode' => 'prefer',
+        ],
+
         'sqlsrv' => [
             'driver' => 'sqlsrv',
             'host' => env('DB_HOST', 'localhost'),

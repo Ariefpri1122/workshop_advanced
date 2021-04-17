@@ -9,6 +9,7 @@ use App\Client2 as Client2;
 use GuzzleHttp\Client as Api;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Facades\Cache;
+use App\Events\Event;
 
 
 class ClientController extends Controller
@@ -154,7 +155,9 @@ class ClientController extends Controller
 
                 ]
             );
-
+            //dd($data);
+            //event(new Event($data));
+            
             $client->insert($data);
 
             /*
