@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class modelntnx extends Model
 {
     //
-    protected $array=['Arief','Petrus','Duga','Yogi','Agung','Sahdam','Halim','Yudi','Jojo'];
+    protected $karyawan=['Arief','Petrus','Duga','Yogi','Agung','Yudi'];
 
-    public function list_se()
+    public function list_semua()
     {
-        return $this->array;
+        return $this->karyawan;
     }
 }

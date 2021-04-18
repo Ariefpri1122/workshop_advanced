@@ -60,7 +60,6 @@ Route::get('/home', function () {
 Route::get('/api_fetch', 'ClientController@api_fetch');
 
 Route::get('/se', 'ctrlntnx@all');
-Route::get('/se/{id}', 'ctrlntnx@show');
 
 Route::get('/facades/db', function () {
 

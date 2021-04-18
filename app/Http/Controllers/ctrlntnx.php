@@ -3,25 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\se as se;
+use App\modelntnx as modelntnx;
 
 class ctrlntnx extends Controller
 {
     //
 
-    public function all()
+    public function all(modelntnx $modelntnx)
     {
-        //return se::all();
-
-        $data = se::all();
+        $this->modelntnx = $modelntnx->list_semua();
+        $data = $this->modelntnx;
         //dd($data);
         return view ('view_se')->with('data', $data);
-    }
-    
-    public function show($id)
-    {
-        $data = se::find($id);
-        //dd($data->nama);
-        return view ('find_se')->with('data', $data->nama);
     }
 }
