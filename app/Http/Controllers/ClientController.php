@@ -5,29 +5,31 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Title as Title;
 use App\Client as Client;
-//use App\Client2 as Client2;
+use App\Client2 as Client2;
 use GuzzleHttp\Client as Api;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Facades\Cache;
+use App\Events\Event;
 
 
 class ClientController extends Controller
 {
-    /*
+    
     public function __construct( Title $titles, Client $client, Client2 $client2 )
     {
         $this->titles = $titles->all();
         $this->client = $client;
         $this->client2 = $client2;
     }
-    */
     
+    
+    /*
     public function __construct( Title $titles, Client $client )
     {
         $this->titles = $titles->all();
         $this->client = $client;
     }
-    
+    */
 
     public function di()
     {
@@ -80,7 +82,8 @@ class ClientController extends Controller
     {
         $data = [];
         $data= $this->client->all();
-    
+        
+
         //$data = Cache::remember('api_view',10 * 60, function () {
         //    return client::all();
         //});
@@ -152,7 +155,9 @@ class ClientController extends Controller
 
                 ]
             );
-
+            //dd($data);
+            //event(new Event($data));
+            
             $client->insert($data);
 
             /*
