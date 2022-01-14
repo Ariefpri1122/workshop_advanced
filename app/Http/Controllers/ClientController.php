@@ -80,8 +80,7 @@ class ClientController extends Controller
     {
         $data = [];
         $data= $this->client->all();
-        
-
+    
         //$data = Cache::remember('api_view',10 * 60, function () {
         //    return client::all();
         //});
