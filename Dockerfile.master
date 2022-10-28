@@ -15,7 +15,7 @@ RUN docker-php-ext-enable mcrypt
 RUN docker-php-ext-install mysqli pdo pdo_pgsql pdo_mysql tokenizer xml pcntl
 WORKDIR /app
 COPY . /app
-RUN composer update
+
 RUN composer install
 
 RUN mv env.master .env
