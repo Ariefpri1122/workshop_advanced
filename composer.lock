@@ -3296,7 +3296,7 @@
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.1"
+                "php": ">=8.0.6"
             },
             "require-dev": {
                 "phpunit/phpunit": "~6"
