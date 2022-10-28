@@ -17,7 +17,7 @@
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
         "kylekatarnls/laravel-carbon-2": "^1.0.0",
-        "phpunit/phpunit": "~5.7"
+        "phpunit/phpunit": "~9.0"
         
     },
     "autoload": {
