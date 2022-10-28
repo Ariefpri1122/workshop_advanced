@@ -11,6 +11,8 @@
         "nmred/kafka-php": "0.2.*",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
+        "nesbot/carbon": "2.61.0 as 1.39.0",
+        "kylekatarnls/laravel-carbon-2": "^1.0.0",
         "predis/predis": "^1.1"
     },
     "require-dev": {
