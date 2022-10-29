@@ -7,8 +7,6 @@ use App\Title as Title;
 use App\Client as Client;
 use App\Client2 as Client2;
 use GuzzleHttp\Client as Api;
-use RdKafka\Conf;
-use RdKafka\Producer;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Facades\Cache;
 use App\Events\Event;

@@ -3,6 +3,7 @@
 namespace App\Handlers;
 
 use RdKafka\Producer;
+use RdKafka\Conf;
 use Exception;
 
 class ProducerHandler
