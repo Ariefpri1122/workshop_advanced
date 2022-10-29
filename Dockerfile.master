@@ -17,6 +17,8 @@ RUN printf "yes\n" | pecl install rdkafka
 
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
+RUN apt-get --allow-releaseinfo-change update
+
 RUN chmod +x /usr/local/bin/install-php-extensions && \
     install-php-extensions rdkafka
 
