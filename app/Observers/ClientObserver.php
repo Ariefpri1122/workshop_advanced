@@ -12,7 +12,7 @@ class ClientObserver
     /**
      * Topic name
      */
-    const KAFKA_TOPIC = 'clients';
+    const KAFKA_TOPIC = 'client';
 
     /**
      * Publish error message
