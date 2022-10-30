@@ -9,13 +9,12 @@ RUN apt-get update -y && apt-get install -y libxml2-dev libmcrypt-dev openssl
 RUN apt-get install -y unzip wget iputils-ping
 RUN apt-get install -qq libpq-dev git curl libzip-dev libmcrypt-dev libjpeg-dev libpng-dev libfreetype6-dev libbz2-dev
 
-RUN apt-get install -y librdkafka-dev
-RUN printf "yes\n" | pecl install rdkafka
-
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN pecl install mcrypt-1.0.3
 
-ADD php.ini /usr/local/etc/php/php.ini-production
+RUN /bin/sh -c rm -rf /librdkafka     && apk del -f .build-deps
+RUN /bin/sh -c pecl channel-update pecl.php.net     && pecl install rdkafka-$PHP_RDKAFKA_VERSION     && docker-php-ext-enable rdkafka
+RUN /bin/sh -c git clone --depth 1 --branch v$LIBRDKAFKA_VERSION https://github.com/edenhill/librdkafka.git     && cd librdkafka     && ./configure     && make     && make install
+RUN /bin/sh -c apk add --no-cache --virtual .build-deps     $PHPIZE_DEPS     autoconf     gcc     g++     make     bash     curl-dev     imagemagick-dev     libtool     libxml2-dev     postgresql-dev     oniguruma-dev     sqlite-dev     && apk add --update --no-cache nodejs npm     && apk add --no-cache     curl     git     imagemagick     postgresql-libs     libintl     icu     icu-dev     libzip-dev     oniguruma     && pecl install imagick     && docker-php-ext-enable imagick     && docker-php-ext-install     bcmath     curl     iconv     mbstring     pdo     pdo_mysql     pdo_pgsql     pdo_sqlite     pcntl     tokenizer     xml     zip     intl     && curl -s https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer
 
 RUN docker-php-ext-enable mcrypt
 RUN docker-php-ext-install mysqli pdo pdo_pgsql pdo_mysql tokenizer xml pcntl
@@ -23,7 +22,7 @@ WORKDIR /app
 COPY . /app
 RUN composer install
 
-RUN mv env.development .env
+RUN mv env.master .env
 RUN php artisan optimize
 
 CMD php artisan serve --host=0.0.0.0 --port=9999
