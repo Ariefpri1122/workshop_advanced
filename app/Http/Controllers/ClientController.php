@@ -160,7 +160,7 @@ class ClientController extends Controller
             
             //$client->insert($data);
 
-            Client::create($request->only(['name', 'last_name', 'address', 'zip_code', 'city', 'state', 'email']));
+            Client::create($request->only(['title','name', 'last_name', 'address', 'zip_code', 'city', 'state', 'email']));
 
             return response()->json(['Data inserted successfully']);
 
