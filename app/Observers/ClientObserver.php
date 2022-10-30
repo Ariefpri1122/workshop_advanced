@@ -3,7 +3,7 @@
 namespace App\Observers;
 
 use App\Handlers\ProducerHandler;
-use App\Client as Client;
+use App\Client;
 use Exception;
 use Illuminate\Support\Facades\Log;
 
@@ -42,7 +42,7 @@ class ClientObserver
      * @param  \App\Client $data
      * @return void
      */
-    public function Insert(Client $client)
+    public function Created(Client $client)
     {
         $this->pushToKafka($client);
     }

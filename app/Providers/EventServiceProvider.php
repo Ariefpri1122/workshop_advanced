@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use App\Client;
+use App\Observers\ClientObserver;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,6 @@ class EventServiceProvider extends ServiceProvider
     {
         parent::boot();
 
-        //
+        Client::observe(ClientObserver::class);
     }
 }
