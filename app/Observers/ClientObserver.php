@@ -12,7 +12,7 @@ class ClientObserver
     /**
      * Topic name
      */
-    const KAFKA_TOPIC = 'client';
+    const KAFKA_TOPIC = 'nama_client';
 
     /**
      * Publish error message
@@ -59,7 +59,7 @@ class ClientObserver
         $this->pushToKafka($client);
     }
     */
-    
+
     /**
      * Handle the inventory "deleted" event.
      *
