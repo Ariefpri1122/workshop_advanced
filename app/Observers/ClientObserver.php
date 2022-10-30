@@ -3,7 +3,7 @@
 namespace App\Observers;
 
 use App\Handlers\ProducerHandler;
-use App\Client;
+use App\Client as Client;
 use Exception;
 use Illuminate\Support\Facades\Log;
 
@@ -39,18 +39,18 @@ class ClientObserver
     /**
      * Handle the inventory "created" event.
      *
-     * @param  \App\Client $client
+     * @param  \App\Client $data
      * @return void
      */
-    public function created(Client $client)
+    public function created(Client $data)
     {
-        $this->pushToKafka($client);
+        $this->pushToKafka($data);
     }
 
     /**
      * Handle the inventory "updated" event.
      *
-     * @param  \App\Client $client
+     * @param  \App\Client $data
      * @return void
     
     
@@ -63,25 +63,25 @@ class ClientObserver
     /**
      * Handle the inventory "deleted" event.
      *
-     * @param  \App\Client $client
+     * @param  \App\Client $data
      * @return void
      */
-    public function deleted(Client $client)
+    public function deleted(Client $data)
     {
-        $this->pushToKafka($client);
+        $this->pushToKafka($data);
     }
 
     /**
      * Push inventory to kafka
      *
-     * @param  \App\Client $client
+     * @param  \App\Client $data
      * @return void
      */
-    protected function pushToKafka(Client $client)
+    protected function pushToKafka(Client $data)
     {
         try {
             $this->producerHandler->setTopic(self::KAFKA_TOPIC)
-                ->send($client->toJson(), $client->name);
+                ->send($data->toJson(), $data->name);
         } catch (Exception $e) {
             Log::critical(self::PUBLISH_ERROR_MESSAGE, [
                 'error' => $e->getMessage(),
