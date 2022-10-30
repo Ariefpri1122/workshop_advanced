@@ -55,7 +55,7 @@ class ClientObserver
      * @return void
     */
     
-    public function updated(Client $client)
+    public function Saved(Client $client)
     {
         $this->pushToKafka($client);
     }

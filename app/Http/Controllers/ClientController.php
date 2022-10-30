@@ -281,7 +281,7 @@ class ClientController extends Controller
             $client_data->email = $request->input('email');
 
             $client_data->save();
-            $client_data->unsetEventDispatcher();
+            //$client_data->unsetEventDispatcher();
 
             return redirect('clients');
         }
