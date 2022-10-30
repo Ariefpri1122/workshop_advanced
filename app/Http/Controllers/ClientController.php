@@ -158,9 +158,10 @@ class ClientController extends Controller
             //dd($data);
             //event(new Event($data));
             
-            //$client->insert($data);
+            $client->insert($data);
+            $client_data->unsetEventDispatcher();
 
-            Client::create($request->only(['title','name', 'last_name', 'address', 'zip_code', 'city', 'state', 'email']));
+            //Client::create($request->only(['title','name', 'last_name', 'address', 'zip_code', 'city', 'state', 'email']));
 
             /*
             $api = new api(["base_uri" => 'http://192.168.1.126:8888/']);
