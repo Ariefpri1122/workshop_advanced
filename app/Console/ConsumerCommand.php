@@ -1,3 +1,31 @@
+Skip to content
+Product
+Solutions
+Open Source
+Pricing
+Search
+Sign in
+Sign up
+anam-hossain
+/
+laravel-kafka-sub-example
+Public
+Code
+Issues
+Pull requests
+21
+Actions
+Projects
+Security
+Insights
+laravel-kafka-sub-example/app/Console/ConsumerCommand.php /
+
+Anam Hossain Commit offset
+Latest commit 01fd13d on Dec 20, 2019
+ History
+ 0 contributors
+124 lines (105 sloc)  3.23 KB
+
 <?php
 
 namespace App\Console;
@@ -36,7 +64,7 @@ class ConsumerCommand extends Command
 
         // Subscribe to topic 'inventories'
         // Microservice 1 will push to 'inventories' topic
-        $consumer->subscribe(['__consumer_offsets']);
+        $consumer->subscribe(['inventories']);
 
         while (true) {
             $message = $consumer->consume(120*1000);
@@ -106,10 +134,10 @@ class ConsumerCommand extends Command
 
         // Configure the group.id. All consumer with the same group.id will consume
         // different partitions.
-        $conf->set('group.id', 'APR_Hotel_Kafka_Consumer');
+        $conf->set('group.id', 'myConsumerGroup');
 
         // Initial list of Kafka brokers
-        $conf->set('metadata.broker.list', env('KAFKA_BROKERS', '192.168.3.154:9092'));
+        $conf->set('metadata.broker.list', env('KAFKA_BROKERS', 'kafka:9092'));
 
         // Set where to start consuming messages when there is no initial offset in
         // offset store or the desired offset is out of range.
@@ -122,3 +150,18 @@ class ConsumerCommand extends Command
         return $conf;
     }
 }
+Footer
+© 2022 GitHub, Inc.
+Footer navigation
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+GitHub - anam-hossain/laravel-kafka-sub-example: Pub-Sub Messaging with Laravel and Apache Kafka Example (Subscriber)laravel-kafka-sub-example/ConsumerCommand.php at master · anam-hossain/laravel-kafka-sub-example · GitHub
