@@ -17,7 +17,7 @@ class ProducerServiceProvider extends ServiceProvider
     {
         $conf = new Conf();
 
-        $conf->set('metadata.broker.list', '192.168.3.154:9092'));
+        $conf->set('bootstrap.servers', '192.168.3.154:9092'));
         
         $conf->set('compression.type', 'snappy');
         
