@@ -11,7 +11,6 @@ RUN apt-get install -qq libpq-dev git curl libzip-dev libmcrypt-dev libjpeg-dev 
 
 RUN pecl install mcrypt-1.0.3
 
-RUN /bin/sh -c rm -rf /librdkafka     && apk del -f .build-deps
 RUN /bin/sh -c pecl channel-update pecl.php.net     && pecl install rdkafka-$PHP_RDKAFKA_VERSION     && docker-php-ext-enable rdkafka
 RUN /bin/sh -c git clone --depth 1 --branch v$LIBRDKAFKA_VERSION https://github.com/edenhill/librdkafka.git     && cd librdkafka     && ./configure     && make     && make install
 RUN /bin/sh -c apk add --no-cache --virtual .build-deps     $PHPIZE_DEPS     autoconf     gcc     g++     make     bash     curl-dev     imagemagick-dev     libtool     libxml2-dev     postgresql-dev     oniguruma-dev     sqlite-dev     && apk add --update --no-cache nodejs npm     && apk add --no-cache     curl     git     imagemagick     postgresql-libs     libintl     icu     icu-dev     libzip-dev     oniguruma     && pecl install imagick     && docker-php-ext-enable imagick     && docker-php-ext-install     bcmath     curl     iconv     mbstring     pdo     pdo_mysql     pdo_pgsql     pdo_sqlite     pcntl     tokenizer     xml     zip     intl     && curl -s https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer
