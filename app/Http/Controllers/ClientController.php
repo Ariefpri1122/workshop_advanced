@@ -10,6 +10,9 @@ use GuzzleHttp\Client as Api;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Facades\Cache;
 use App\Events\Event;
+use RdKafka\Conf;
+use RdKafka\Producer;
+use Illuminate\Support\ServiceProvider;
 
 
 class ClientController extends Controller
