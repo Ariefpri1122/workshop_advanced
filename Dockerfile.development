@@ -9,11 +9,11 @@ RUN apt-get update -y && apt-get install -y libxml2-dev libmcrypt-dev openssl
 RUN apt-get install -y unzip wget iputils-ping
 RUN apt-get install -qq libpq-dev git curl libzip-dev libmcrypt-dev libjpeg-dev libpng-dev libfreetype6-dev libbz2-dev
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN pecl install mcrypt-1.0.3
-
 RUN apt-get install -y librdkafka-dev
 RUN printf "yes\n" | pecl install rdkafka
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN pecl install mcrypt-1.0.3
 
 ADD php.ini /usr/local/etc/php/php.ini-production
 
