@@ -158,7 +158,11 @@ class ClientController extends Controller
             //dd($data);
             //event(new Event($data));
             
-            $client->insert($data);
+            //$client->insert($data);
+
+            Client::create($request->only(['name', 'last_name', 'address', 'zip_code', 'city', 'state', 'email']));
+
+            return response()->json(['Data inserted successfully']);
 
             /*
             $api = new api(["base_uri" => 'http://192.168.1.126:8888/']);
@@ -168,7 +172,7 @@ class ClientController extends Controller
             $response = $api->post("/api/api_new/", $options);
             */
 
-            return redirect('clients');
+            //return redirect('clients');
         }
         $data['titles'] = $this->titles;
         $data['modify'] = 0;
