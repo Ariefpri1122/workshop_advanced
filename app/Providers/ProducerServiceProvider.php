@@ -26,8 +26,8 @@ class ProducerServiceProvider extends ServiceProvider
             $conf->set('debug', 'all');
         }
  
- //       $this->app->bind(Producer::class, function () use ($conf) {
- //           return new Producer($conf);
- //       });
+        $this->app->bind(Producer::class, function () use ($conf) {
+            return new Producer($conf);
+        });
     }
 }

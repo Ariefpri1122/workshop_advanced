@@ -53,13 +53,13 @@ class ClientObserver
      *
      * @param  \App\Client $data
      * @return void
-    
+    */
     
     public function updated(Client $client)
     {
         $this->pushToKafka($client);
     }
-    */ 
+     
 
     /**
      * Handle the inventory "deleted" event.
