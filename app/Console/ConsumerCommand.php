@@ -106,7 +106,7 @@ class ConsumerCommand extends Command
 
         // Configure the group.id. All consumer with the same group.id will consume
         // different partitions.
-        $conf->set('group.id', 'myConsumerGroup');
+        $conf->set('group.id', 'SubscriptionGroup');
 
         // Initial list of Kafka brokers
         $conf->set('metadata.broker.list', env('KAFKA_BROKERS', '192.168.3.154:9092'));
