@@ -66,12 +66,13 @@ class ClientObserver
      *
      * @param  \App\Client $client
      * @return void
+    */
      
     public function deleted(Client $client)
     {
         $this->pushToKafka($client);
     }
-    */
+    
 
     /**
      * Push inventory to kafka

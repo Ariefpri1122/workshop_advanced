@@ -17,9 +17,9 @@ class ProducerServiceProvider extends ServiceProvider
     {
         $conf = new Conf();
 
-        $conf->set('metadata.broker.list', env('KAFKA_BROKERS', '192.168.3.154:9092'));
+        $conf->set('metadata.broker.list', '192.168.3.154:9092'));
         
-        $conf->set('compression.type', 'snappy');
+        //$conf->set('compression.type', 'snappy');
         
         if (env('KAFKA_DEBUG', false)) {
             $conf->set('log_level', LOG_DEBUG);
