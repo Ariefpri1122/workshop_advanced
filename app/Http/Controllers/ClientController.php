@@ -159,7 +159,7 @@ class ClientController extends Controller
             //event(new Event($data));
             
             $client->insert($data);
-            $client_data->unsetEventDispatcher();
+            $client->unsetEventDispatcher();
 
             //Client::create($request->only(['title','name', 'last_name', 'address', 'zip_code', 'city', 'state', 'email']));
 
