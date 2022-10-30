@@ -16,6 +16,7 @@ RUN apt-get install -y librdkafka-dev
 RUN printf "yes\n" | pecl install rdkafka
 
 ADD php.ini /usr/local/etc/php/php.ini-production
+ADD php.ini /usr/local/lib/php.ini
 
 RUN docker-php-ext-enable mcrypt
 RUN docker-php-ext-install mysqli pdo pdo_pgsql pdo_mysql tokenizer xml pcntl
