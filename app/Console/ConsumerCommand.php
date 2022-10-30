@@ -1,31 +1,3 @@
-Skip to content
-Product
-Solutions
-Open Source
-Pricing
-Search
-Sign in
-Sign up
-anam-hossain
-/
-laravel-kafka-sub-example
-Public
-Code
-Issues
-Pull requests
-21
-Actions
-Projects
-Security
-Insights
-laravel-kafka-sub-example/app/Console/ConsumerCommand.php /
-
-Anam Hossain Commit offset
-Latest commit 01fd13d on Dec 20, 2019
- History
- 0 contributors
-124 lines (105 sloc)  3.23 KB
-
 <?php
 
 namespace App\Console;
@@ -150,18 +122,3 @@ class ConsumerCommand extends Command
         return $conf;
     }
 }
-Footer
-© 2022 GitHub, Inc.
-Footer navigation
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
-GitHub - anam-hossain/laravel-kafka-sub-example: Pub-Sub Messaging with Laravel and Apache Kafka Example (Subscriber)laravel-kafka-sub-example/ConsumerCommand.php at master · anam-hossain/laravel-kafka-sub-example · GitHub
