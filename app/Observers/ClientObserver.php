@@ -42,10 +42,9 @@ class ClientObserver
      * @param  \App\Client $data
      * @return void
      */
-    public function created(Client $data)
+    public function Insert(Client $client)
     {
-        //$this->pushToKafka($data);
-        dd($data);
+        $this->pushToKafka($client);
     }
 
     /**
@@ -64,25 +63,26 @@ class ClientObserver
     /**
      * Handle the inventory "deleted" event.
      *
-     * @param  \App\Client $data
+     * @param  \App\Client $client
      * @return void
-     */
-    public function deleted(Client $data)
+     
+    public function deleted(Client $client)
     {
-        $this->pushToKafka($data);
+        $this->pushToKafka($client);
     }
+    */
 
     /**
      * Push inventory to kafka
      *
-     * @param  \App\Client $data
+     * @param  \App\Client $client
      * @return void
      */
-    protected function pushToKafka(Client $data)
+    protected function pushToKafka(Client $client)
     {
         try {
             $this->producerHandler->setTopic(self::KAFKA_TOPIC)
-                ->send($data->toJson(), $data->name);
+                ->send($client->toJson(), $client->name);
         } catch (Exception $e) {
             Log::critical(self::PUBLISH_ERROR_MESSAGE, [
                 'error' => $e->getMessage(),
