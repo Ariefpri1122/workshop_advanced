@@ -84,7 +84,7 @@ class ClientObserver
     {
         try {
             $this->producerHandler->setTopic(self::KAFKA_TOPIC)
-                ->send($client->toJson(), $client->id);
+                ->send($client->toJson(), $client->name);
         } catch (Exception $e) {
             Log::critical(self::PUBLISH_ERROR_MESSAGE, [
                 'error' => $e->getMessage(),
