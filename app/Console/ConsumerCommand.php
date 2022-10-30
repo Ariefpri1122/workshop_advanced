@@ -36,7 +36,7 @@ class ConsumerCommand extends Command
 
         // Subscribe to topic 'inventories'
         // Microservice 1 will push to 'inventories' topic
-        $consumer->subscribe(['inventories']);
+        $consumer->subscribe(['__consumer_offsets']);
 
         while (true) {
             $message = $consumer->consume(120*1000);
@@ -73,8 +73,8 @@ class ConsumerCommand extends Command
 
         // Lets update the stats
         Stat::updateOrCreate(
-            ['inventory_id' => $message->body->id],
-            ['make' => $message->body->make, 'model' => $message->body->model]
+            ['id' => $message->body->id],
+            ['name' => $message->body->name, 'model' => $message->body->model]
         );
     }
 
@@ -109,7 +109,7 @@ class ConsumerCommand extends Command
         $conf->set('group.id', 'myConsumerGroup');
 
         // Initial list of Kafka brokers
-        $conf->set('metadata.broker.list', env('KAFKA_BROKERS', 'kafka:9092'));
+        $conf->set('metadata.broker.list', env('KAFKA_BROKERS', '192.168.3.154:9092'));
 
         // Set where to start consuming messages when there is no initial offset in
         // offset store or the desired offset is out of range.
