@@ -73,8 +73,8 @@ class ConsumerCommand extends Command
 
         // Lets update the stats
         Client::updateOrCreate(
-            ['client_id' => $message->body->id],
-            ['title' => $message->body->title, 'name' => $message->body->name, 'last_name' => $message->body->last_name, 'address' => $message->body->address, 'zip_code' => $message->body->zip_code, 'city' => $message->body->city, 'state' => $message->body->state, 'email' => $message->body->email]
+            ['name' => $message->body->name],
+            ['title' => $message->body->title, 'last_name' => $message->body->last_name, 'address' => $message->body->address, 'zip_code' => $message->body->zip_code, 'city' => $message->body->city, 'state' => $message->body->state, 'email' => $message->body->email]
         );
     }
 
