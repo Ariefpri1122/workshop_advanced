@@ -74,7 +74,7 @@ class ConsumerCommand extends Command
         // Lets update the stats
         Stat::updateOrCreate(
             ['id' => $message->body->id],
-            ['name' => $message->body->name, 'model' => $message->body->model]
+            ['make' => $message->body->make, 'model' => $message->body->model]
         );
     }
 
