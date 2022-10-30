@@ -179,6 +179,9 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\DummyServiceProvider::class,
 
+        // Kafka service providers
+        App\Providers\ProducerServiceProvider::class,
+
     ],
 
     /*
