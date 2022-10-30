@@ -2,7 +2,7 @@
 
 namespace App\Console;
 
-use App\Stat;
+use App\Client;
 use Exception;
 use RdKafka\Conf;
 use RdKafka\KafkaConsumer;
@@ -34,9 +34,9 @@ class ConsumerCommand extends Command
     {
         $consumer = new KafkaConsumer($this->getConfig());
 
-        // Subscribe to topic 'inventories'
-        // Microservice 1 will push to 'inventories' topic
-        $consumer->subscribe(['__consumer_offsets']);
+        // Subscribe to topic 'nama_client'
+        // Microservice 1 will push to 'nama_client' topic
+        $consumer->subscribe(['nama_client']);
 
         while (true) {
             $message = $consumer->consume(120*1000);
@@ -72,8 +72,7 @@ class ConsumerCommand extends Command
         $this->info(json_encode($message));
 
         // Lets update the stats
-        Stat::updateOrCreate(
-            ['id' => $message->body->id],
+        Client::updateOrCreate(
             ['title' => $message->body->title, 'name' => $message->body->name, 'last_name' => $message->body->last_name, 'address' => $message->body->address, 'zip_code' => $message->body->zip_code, 'city' => $message->body->city, 'state' => $message->body->state, 'email' => $message->body->email]
         );
     }
