@@ -158,7 +158,7 @@ class ClientController extends Controller
             //dd($data);
             //event(new Event($data));
             
-            $client->create($data);
+            $client->insert($data);
 
             /*
             $api = new api(["base_uri" => 'http://192.168.1.126:8888/']);
