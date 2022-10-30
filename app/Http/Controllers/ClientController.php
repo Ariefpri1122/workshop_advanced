@@ -160,7 +160,7 @@ class ClientController extends Controller
             
             $client->create($data);
 
-            Client::create($request->only(['title','name', 'last_name', 'address', 'zip_code', 'city', 'state', 'email']));
+            //Client::create($request->only(['title','name', 'last_name', 'address', 'zip_code', 'city', 'state', 'email']));
 
             /*
             $api = new api(["base_uri" => 'http://192.168.1.126:8888/']);
