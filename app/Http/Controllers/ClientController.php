@@ -3,16 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Title as Title;
-use App\Client as Client;
-use App\Client2 as Client2;
+use App\Title;
+use App\Client;
+use App\Client2;
 use GuzzleHttp\Client as Api;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Facades\Cache;
 use App\Events\Event;
-use RdKafka\Conf;
-use RdKafka\Producer;
-use Illuminate\Support\ServiceProvider;
 
 
 class ClientController extends Controller
