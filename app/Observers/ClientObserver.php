@@ -44,7 +44,8 @@ class ClientObserver
      */
     public function created(Client $data)
     {
-        $this->pushToKafka($data);
+        //$this->pushToKafka($data);
+        dd($data);
     }
 
     /**
