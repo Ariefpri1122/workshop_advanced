@@ -45,7 +45,7 @@ class EventListener2
         //dd($data);
 
          $client3 = new Client3();
-         $client3->insert($data);
+         $client3->create($data);
     }
 
 }
